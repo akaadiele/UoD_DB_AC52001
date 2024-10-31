@@ -1,0 +1,1 @@
+<?php$first = $_POST['firstname'];$last = $_POST['lastname'];$id = $_POST['id'];include 'dbConnect.php';$sqlInsert = "INSERT INTO people (FirstName, LastName, id) VALUES ('$first', '$last', '$id')";if (!mysql_query($sqlInsert))  {  die('Error: ' . mysql_error());  }echo "new person added";?>
