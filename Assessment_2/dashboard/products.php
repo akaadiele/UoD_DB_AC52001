@@ -1,3 +1,7 @@
+<?php
+include("../php/db.php");
+?>
+
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 
@@ -158,7 +162,7 @@
   </svg>
 
   <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="../homepage/home.html">Future Fit</a>
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="../homepage/home.php">Future Fit</a>
 
     <ul class="navbar-nav flex-row d-md-none">
       <li class="nav-item text-nowrap">
@@ -197,7 +201,7 @@
           <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" aria-current="page" href="dashboard.html">
+                <a class="nav-link d-flex align-items-center gap-2" aria-current="page" href="dashboard.php">
                   <svg class="bi">
                     <use xlink:href="#house-fill" />
                   </svg>
@@ -205,7 +209,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="orders.html">
+                <a class="nav-link d-flex align-items-center gap-2" href="orders.php">
                   <svg class="bi">
                     <use xlink:href="#file-earmark" />
                   </svg>
@@ -213,7 +217,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="products.html">
+                <a class="nav-link d-flex align-items-center gap-2 active" href="#">
                   <svg class="bi">
                     <use xlink:href="#cart" />
                   </svg>
@@ -221,7 +225,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 active" href="#">
+                <a class="nav-link d-flex align-items-center gap-2" href="customers.php">
                   <svg class="bi">
                     <use xlink:href="#people" />
                   </svg>
@@ -229,7 +233,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="employees.html">
+                <a class="nav-link d-flex align-items-center gap-2" href="employees.php">
                   <svg class="bi">
                     <use xlink:href="#puzzle" />
                   </svg>
@@ -242,7 +246,7 @@
 
             <ul class="nav flex-column mb-auto">
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="settings.html">
+                <a class="nav-link d-flex align-items-center gap-2" href="settings.php">
                   <svg class="bi">
                     <use xlink:href="#gear-wide-connected" />
                   </svg>
@@ -250,7 +254,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="../homepage/home.html">
+                <a class="nav-link d-flex align-items-center gap-2" href="../homepage/home.php">
                   <svg class="bi">
                     <use xlink:href="#door-closed" />
                   </svg>
@@ -265,19 +269,17 @@
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Customers</h1>
+          <h1 class="h2">Products</h1>
           <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-              <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#categoryModal">
+                Add new category
+              </button>
+              <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#productModal">
+                Add new product
+              </button>
             </div>
-            <button type="button"
-              class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
-              <svg class="bi">
-                <use xlink:href="#calendar3" />
-              </svg>
-              This week
-            </button>
           </div>
         </div>
 
@@ -412,6 +414,149 @@
           </table>
         </div>
       </main>
+    </div>
+  </div>
+
+
+  <!-- Modals -->
+  <!-- Modal - Add Category -->
+  <div class="modal fade" id="categoryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="categoryModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <?php
+          if (isset($_POST['submitCategory'])) {
+            $categoryName = $_POST['categoryName'];
+
+            // Query to check if category already exist
+            $select_query_categ = "SELECT * FROM `itemcategory` WHERE category = '$categoryName'";
+            $select_query_categ_result = mysqli_query($mysql, $select_query_categ);
+            $select_query_categ_result_numRows = mysqli_num_rows($select_query_categ_result);
+            if ($select_query_categ_result_numRows > 0) {
+              echo "<script> alert('Category already exists') </script>";
+            } else {
+              // Query to insert category
+              $insert_query_categ = "INSERT INTO `ItemCategory` (`category`) VALUES ('$categoryName')";
+              $insert_query_categ_result = mysqli_query($mysql, $insert_query_categ);
+              if ($insert_query_categ_result) {
+                echo "<script> alert('Category added successfully') </script>";
+              }
+            }
+          }
+          ?>
+
+          <form method="post" action="products.php">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control rounded-3" id="categoryName" name="categoryName" placeholder="Insert Category" required>
+              <label for="categoryName">Category Name</label>
+            </div>
+            <hr class="my-4">
+            <button class="btn rounded-3 btn-primary btn-sm form-control" type="submit" name="submitCategory">Add Category</button>
+          </form>
+
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Understood</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal - Add Product -->
+  <div class="modal fade" id="productModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="productModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <form class="" action="products.php">
+
+
+            <div class="form-floating mb-3">
+              <select name="productCategory" id="productCategory" class="form-select form-select-sm form-control rounded-3">
+                <option selected>Select Category</option>
+                <?php
+                $select_query_categ = "SELECT * FROM `itemcategory`";
+                $query_result_categ = mysqli_query($mysql, $select_query_categ);
+                while ($row_categ = mysqli_fetch_assoc($query_result_categ)) {
+                  $itemCategId = $row_categ['categoryId'];
+                  $itemCateg = $row_categ['category'];
+                  echo "<option value='$itemCategId'>$itemCateg</option>";
+                }
+                ?>
+              </select>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control rounded-3" id="itemName" placeholder="Product" required>
+              <label for="itemName">Product Name</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control rounded-3" id="itemDescription" placeholder="Product" required>
+              <label for="itemDescription">Product Description</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="number" class="form-control rounded-3" id="itemHeight" placeholder="Product">
+              <label for="itemHeight">Height</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="number" class="form-control rounded-3" id="itemWidth" placeholder="Product">
+              <label for="itemWidth">Width</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="number" class="form-control rounded-3" id="itemLength" placeholder="Product">
+              <label for="itemLength">Length</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="number" class="form-control rounded-3" id="itemWeight" placeholder="Product">
+              <label for="itemWeight">Weight</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="number" class="form-control rounded-3" id="itemSellPrice" placeholder="Product" required>
+              <label for="itemSellPrice">Sell Price</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <select name="supplierId" id="supplierId" class="form-select form-select-sm form-control rounded-3">
+                <option selected>Select Supplier</option>
+                <?php
+                $select_query_supplier = "SELECT * FROM `supplier`";
+                $query_result_supplier = mysqli_query($mysql, $select_query_supplier);
+                while ($row_supplier = mysqli_fetch_assoc($query_result_supplier)) {
+                  $supplierId = $row_supplier['supplierId'];
+                  $supplierName = $row_supplier['supplierName'];
+                  echo "<option value='$supplierId'>$supplierName</option>";
+                }
+                ?>
+              </select>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="number" class="form-control rounded-3" id="itemSupplierPrice" placeholder="Product">
+              <label for="itemSupplierPrice">Supplier Price</label>
+            </div>
+
+            <hr class="my-4">
+            <button class="w-100 mb-2 btn btn-sm rounded-3 btn-primary" type="submit">Add Product</button>
+          </form>
+
+        </div>
+      </div>
     </div>
   </div>
 

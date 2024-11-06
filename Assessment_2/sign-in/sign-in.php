@@ -1,31 +1,32 @@
 <!doctype html>
-<html lang="en" class="h-100" data-bs-theme="auto">
+<html lang="en" data-bs-theme="auto">
 
 <head>
-
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.122.0">
-  <title>Cover Page</title>
+  <title>Sign In</title>
 
-  <!-- Generic styles for this page -->
-  <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/cover/">
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
+
+
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+
   <link href="../sources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
+
   <!-- Custom styles for this page -->
-  <link href="home.css" rel="stylesheet">
+  <link href="sign-in.css" rel="stylesheet">
 
   <!-- Linking browser tab icon -->
   <link rel="icon" href="../sources/img/future-fit-image.ico">
+
 </head>
 
-<!-- <body class="d-flex h-100 text-center text-bg-dark "> -->
-
-<body class="d-flex h-100 text-center bg-body-tertiary">
+<body class="d-flex align-items-center py-4 bg-body-tertiary">
   <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
     <symbol id="check2" viewBox="0 0 16 16">
       <path
@@ -54,7 +55,6 @@
       </svg>
       <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
     </button>
-
     <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
       <li>
         <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light"
@@ -96,39 +96,41 @@
   </div>
 
 
-  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <header class="mb-auto">
-      <div>
-        <h3 class="float-md-start mb-0">Future Fit</h3>
-        <nav class="nav nav-masthead justify-content-center float-md-end">
-          <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="../homepage/home.html">Home</a>
-          <a class="nav-link fw-bold py-1 px-0" href="../products/products.html">Products & Services</a>
-          <a class="nav-link fw-bold py-1 px-0" href="#">Contact</a>
-          <a class="nav-link fw-bold py-1 px-0" href="../sign-in/sign-in.html">Sign In</a>
-        </nav>
+  <main class="form-signin w-100 m-auto">
+    <!-- ### Include PHP code -->
+    <!-- ### Set session variables -->
+    <form action="../productsInfo/productsInfo.php">
+      <img class="mb-4" src="../sources/img/future-fit-image.jpg" alt="" width="150" height="57">
+      <h1 class="h3 mb-3 fw-normal">Sign in</h1>
+
+      <div class="form-floating">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Username</label>
       </div>
-    </header>
+      <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">Password</label>
+      </div>
 
-    <main class="px-3">
-      <!-- <h1>Getting you fit for the future</h1> -->
-      <!-- <p class="lead">***Cover is a one-page template for building simple and beautiful home pages. Download, edit the
-        text, and add your own fullscreen background photo to make it your own.</p> -->
-      <h1>Welcome to Future Fit</h1>
-      <p class="lead">The future of fitness is here</p>
-      <p class="lead">
-        <a href="../products/products.html" class="btn btn-lg btn-light fw-bold border-white bg-white">Learn more</a>
+      <div class="form-check text-start my-3">
+        <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+          Remember me
+        </label>
+      </div>
+      <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+      <p class="mt-2 mb-5">
+        <em><a href="../sign-up/sign-up.php" class="text-white float-md-start">don't have an account?</a></em>
+        <em><a href="../homepage/home.php" class="text-white float-md-end">close</a></em>
       </p>
-    </main>
 
-    <footer class="mt-auto text-white-50">
-      <p>Made with features from <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a></p>
-    </footer>
-  </div>
-
+      <p class="mt-5 mb-3 text-body-secondary">&copy; 2024</p>
+    </form>
+  </main>
 
   <script src="../sources/assets/js/color-modes.js"></script>
   <script src="../sources/assets/dist/js/bootstrap.bundle.min.js"></script>
-
+  <script src="sign-in.js"></script>
 </body>
 
 </html>

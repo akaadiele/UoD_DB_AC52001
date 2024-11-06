@@ -158,7 +158,7 @@
   </svg>
 
   <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="../homepage/home.html">Future Fit</a>
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="../homepage/home.php">Future Fit</a>
 
     <ul class="navbar-nav flex-row d-md-none">
       <li class="nav-item text-nowrap">
@@ -197,7 +197,7 @@
           <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" aria-current="page" href="dashboard.html">
+                <a class="nav-link d-flex align-items-center gap-2" aria-current="page" href="dashboard.php">
                   <svg class="bi">
                     <use xlink:href="#house-fill" />
                   </svg>
@@ -205,7 +205,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 active" href="#">
+                <a class="nav-link d-flex align-items-center gap-2" href="orders.php">
                   <svg class="bi">
                     <use xlink:href="#file-earmark" />
                   </svg>
@@ -213,7 +213,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="products.html">
+                <a class="nav-link d-flex align-items-center gap-2" href="products.php">
                   <svg class="bi">
                     <use xlink:href="#cart" />
                   </svg>
@@ -221,7 +221,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="customers.html">
+                <a class="nav-link d-flex align-items-center gap-2 active" href="#">
                   <svg class="bi">
                     <use xlink:href="#people" />
                   </svg>
@@ -229,7 +229,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="employees.html">
+                <a class="nav-link d-flex align-items-center gap-2" href="employees.php">
                   <svg class="bi">
                     <use xlink:href="#puzzle" />
                   </svg>
@@ -242,7 +242,7 @@
 
             <ul class="nav flex-column mb-auto">
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="settings.html">
+                <a class="nav-link d-flex align-items-center gap-2" href="settings.php">
                   <svg class="bi">
                     <use xlink:href="#gear-wide-connected" />
                   </svg>
@@ -250,7 +250,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="../homepage/home.html">
+                <a class="nav-link d-flex align-items-center gap-2" href="../homepage/home.php">
                   <svg class="bi">
                     <use xlink:href="#door-closed" />
                   </svg>
@@ -265,7 +265,7 @@
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Orders</h1>
+          <h1 class="h2">Customers</h1>
           <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
               <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
@@ -280,6 +280,8 @@
             </button>
           </div>
         </div>
+
+        <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
 
         <h2>Section title</h2>
         <div class="table-responsive small">

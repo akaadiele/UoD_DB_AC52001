@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.122.0">
-  <title>Dashboard Template · Bootstrap v5.3</title>
+  <title>Dashboard</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/dashboard/">
 
@@ -158,7 +158,7 @@
   </svg>
 
   <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="../homepage/home.html">Future Fit</a>
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="../homepage/home.php">Future Fit</a>
 
     <ul class="navbar-nav flex-row d-md-none">
       <li class="nav-item text-nowrap">
@@ -205,7 +205,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="orders.html">
+                <a class="nav-link d-flex align-items-center gap-2" href="orders.php">
                   <svg class="bi">
                     <use xlink:href="#file-earmark" />
                   </svg>
@@ -213,7 +213,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="products.html">
+                <a class="nav-link d-flex align-items-center gap-2" href="products.php">
                   <svg class="bi">
                     <use xlink:href="#cart" />
                   </svg>
@@ -221,7 +221,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="customers.html">
+                <a class="nav-link d-flex align-items-center gap-2" href="customers.php">
                   <svg class="bi">
                     <use xlink:href="#people" />
                   </svg>
@@ -229,7 +229,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="employees.html">
+                <a class="nav-link d-flex align-items-center gap-2" href="employees.php">
                   <svg class="bi">
                     <use xlink:href="#puzzle" />
                   </svg>
@@ -303,7 +303,7 @@
 
             <ul class="nav flex-column mb-auto">
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="settings.html">
+                <a class="nav-link d-flex align-items-center gap-2" href="settings.php">
                   <svg class="bi">
                     <use xlink:href="#gear-wide-connected" />
                   </svg>

@@ -19,7 +19,7 @@
 
 
   <!-- Custom styles for this page -->
-  <link href="products.css" rel="stylesheet">
+  <link href="productsInfo.css" rel="stylesheet">
 
   <!-- Linking browser tab icon -->
   <link rel="icon" href="../sources/img/future-fit-image.ico">
@@ -150,10 +150,10 @@
     <div>
       <h3 class="float-md-start mb-0">Future Fit</h3>
       <nav class="nav nav-masthead justify-content-center float-md-end">
-        <a class="nav-link fw-bold py-1 px-0" aria-current="page" href="../homepage/home.html">Home</a>
-        <a class="nav-link fw-bold py-1 px-0 active" href="../products/products.html">Products & Services</a>
+        <a class="nav-link fw-bold py-1 px-0" aria-current="page" href="../homepage/home.php">Home</a>
+        <a class="nav-link fw-bold py-1 px-0 active" href="../productsInfo/productsInfo.php">Products & Services</a>
         <a class="nav-link fw-bold py-1 px-0" href="#">Contact</a>
-        <a class="nav-link fw-bold py-1 px-0" href="../dashboard/dashboard.html">Account</a>
+        <a class="nav-link fw-bold py-1 px-0" href="../dashboard/dashboard.php">Account</a>
       </nav>
     </div>
   </header>
