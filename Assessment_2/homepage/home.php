@@ -1,15 +1,19 @@
+<?php
+session_start();  // Start session
+include("../sources/php/db.php"); // Connect to database
+?>
+
+
 <!doctype html>
 <html lang="en" class="h-100" data-bs-theme="auto">
 
 <head>
-
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.122.0">
-  <title>Cover Page</title>
+  <title>FutureFit</title>
 
   <!-- Generic styles for this page -->
   <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/cover/">
@@ -101,10 +105,9 @@
       <div>
         <h3 class="float-md-start mb-0">Future Fit</h3>
         <nav class="nav nav-masthead justify-content-center float-md-end">
-          <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="../homepage/home.php">Home</a>
-          <a class="nav-link fw-bold py-1 px-0" href="../productsInfo/productsInfo.php">Products & Services</a>
-          <a class="nav-link fw-bold py-1 px-0" href="#">Contact</a>
-          <a class="nav-link fw-bold py-1 px-0" href="../sign-in/sign-in.php">Sign In</a>
+          <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="../homepage/home.php">Home</a> &nbsp;
+          <a class="nav-link fw-bold py-1 px-0" href="../productsInfo/productsInfo.php">Our Products</a>&nbsp;
+          <a class="nav-link fw-bold py-1 px-0" href="" data-bs-toggle="modal" data-bs-target="#signInModal">Sign In</a>&nbsp;
         </nav>
       </div>
     </header>
@@ -116,7 +119,7 @@
       <h1>Welcome to Future Fit</h1>
       <p class="lead">The future of fitness is here</p>
       <p class="lead">
-        <a href="../productsInfo/productsInfo.php" class="btn btn-lg btn-light fw-bold border-white bg-white">Learn more</a>
+        <a href="../productsInfo/productsInfo.php" class="btn btn-lg btn-light fw-bold border-white bg-white">Explore...</a>
       </p>
     </main>
 
@@ -126,9 +129,183 @@
   </div>
 
 
+
+  <!-- Modals -->
+  <!-- Modal - Sign In -->
+  <div class="modal fade" id="signInModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="signInModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <?php
+        include('sign-in.php');
+        ?>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal - Sign Up -->
+  <div class="modal fade" id="signUpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <?php
+        include('sign-up.php');
+        ?>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modals -->
+
   <script src="../sources/assets/js/color-modes.js"></script>
   <script src="../sources/assets/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
 </html>
+
+
+
+<!-- Sign in logic -->
+<?php
+include("../sources/php/functions.php");
+
+if (isset($_POST['userLogInButton'])) {
+  $username = $_POST['username'];
+  $userPassword = $_POST['userPassword'];
+  $userType = test_input($_POST["userType"]);
+
+  if ((isset($userType)) and ($userType == "customer")) {
+    // Query to check if customer login already exist
+    $select_query_userLogin = "SELECT customerId, customerUsername FROM `CustomerLogin` WHERE customerUsername = '$username' ";
+
+    if ($select_query_userLogin) {
+      $select_query_userLogin_result = mysqli_query($mysql, $select_query_userLogin);
+      $select_query_userLogin_result_numRows = mysqli_num_rows($select_query_userLogin_result);
+
+      if ($select_query_userLogin_result_numRows > 0) {
+        $row = mysqli_fetch_assoc($select_query_userLogin_result);
+
+        $loggedInId = $row['customerId'];
+        $loggedInUsername = $row['customerUsername'];
+
+
+        $_SESSION["loggedInUsername"] = $loggedInUsername;
+        if (isset($_SESSION["loggedInUsername"])) {
+          // echo "<script> alert('---log username $loggedInUsername ---') </script>";
+        }
+
+        $_SESSION["loggedInUserType"] = $userType;
+        if (isset($_SESSION["loggedInUsername"])) {
+          // echo "<script> alert('---user type $userType ---') </script>";
+        }
+
+        $_SESSION["loggedInId"] = $loggedInId;
+        if (isset($_SESSION["loggedInUsername"])) {
+          // echo "<script> alert('---log id  $loggedInId ---') </script>";
+        }
+
+        echo "<script> alert('Login Successful') </script>";
+        echo '<script> window.open("../dashboard/index.php", "_self") </script>';
+      } else {
+        echo "<script> alert('Invalid username or password') </script>";
+      }
+    } else {
+      echo "<script> alert('User not found') </script>";
+    }
+  } elseif ((isset($userType)) and ($userType == "employee")) {
+    // Query to check if employee login already exist
+    $select_query_userLogin = "SELECT employeeId, employeeUsername FROM `employeelogin` WHERE employeeUsername = '$username' ";
+
+    if ($select_query_userLogin) {
+      $select_query_userLogin_result = mysqli_query($mysql, $select_query_userLogin);
+      $select_query_userLogin_result_numRows = mysqli_num_rows($select_query_userLogin_result);
+
+      if ($select_query_userLogin_result_numRows > 0) {
+        $row = mysqli_fetch_assoc($select_query_userLogin_result);
+
+        $loggedInId = $row['employeeId'];
+        $loggedInUsername = $row['employeeUsername'];
+
+        $_SESSION["loggedInUsername"] = $loggedInUsername;
+        if (isset($_SESSION["loggedInUsername"])) {
+          // echo "<script> alert('---log username $loggedInUsername ---') </script>";
+        }
+
+        $_SESSION["loggedInUserType"] = $userType;
+        if (isset($_SESSION["loggedInUsername"])) {
+          // echo "<script> alert('---user type $userType ---') </script>";
+        }
+
+        $_SESSION["loggedInId"] = $loggedInId;
+        if (isset($_SESSION["loggedInUsername"])) {
+          // echo "<script> alert('---log id  $loggedInId ---') </script>";
+        }
+
+        echo "<script> alert('Login Successful') </script>";
+        echo '<script> window.open("../dashboard/index.php", "_self") </script>';
+      } else {
+        echo "<script> alert('Invalid username or password') </script>";
+      }
+    } else {
+      echo "<script> alert('User not found') </script>";
+    }
+  }
+}
+?>
+
+
+
+<!-- Sign Up Logic -->
+<?php
+if (isset($_POST['registerUser'])) {
+  $fullName = $_POST['fullName'];
+  $emailAddress = $_POST['emailAddress'];
+  $phoneNumber = $_POST['phoneNumber'];
+  $customerAddress = $_POST['customerAddress'];
+  $customerType = $_POST['customerType'];
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+  $confirmPassword = $_POST['confirmPassword'];
+
+  if ($confirmPassword != $password) {
+    echo "<script> alert('Passwords do not match') </script>";
+  } else {
+
+    // Query to check if customer already exist
+    $select_query_cust = "SELECT * FROM `Customer` WHERE customerName = '$fullName' OR customerEmail = '$emailAddress' OR customerPhone = '$phoneNumber' ";
+
+    $select_query_cust_result = mysqli_query($mysql, $select_query_cust);
+    $select_query_cust_result_numRows = mysqli_num_rows($select_query_cust_result);
+
+    // Query to check if customer login already exist
+    $select_query_custLogin = "SELECT * FROM `CustomerLogin` WHERE customerUsername = '$username'";
+    $select_query_custLogin_result = mysqli_query($mysql, $select_query_custLogin);
+    $select_query_custLogin_result_numRows = mysqli_num_rows($select_query_custLogin_result);
+
+
+    if ($select_query_cust_result_numRows > 0) {
+      echo "<script> alert('Customer already exists') </script>";
+    } elseif ($select_query_custLogin_result_numRows > 0) {
+      echo "<script> alert('Username already exists') </script>";
+    } else {
+      // Query to insert customer
+      $insert_query_cust = "INSERT INTO `Customer` (`customerName`,`customerEmail`,`customerPhone`,`customerAddress`,`customerTypeId`) VALUES ('$fullName','$emailAddress','$phoneNumber','$customerAddress',$customerType)";
+      $insert_query_cust_result = mysqli_query($mysql, $insert_query_cust);
+      // echo "<script> alert('Customer Result is- $insert_query_cust_result -') </script>"; // ###
+
+      // Query to insert customer login
+      $insert_query_custLogin = "INSERT INTO `CustomerLogin` (`customerId`,`customerUsername`,`customerPassword`) VALUES ($insert_query_cust_result,'$username','$password')";
+      $insert_query_custLogin_result = mysqli_query($mysql, $insert_query_custLogin);
+      // echo "<script> alert('Customer LoginResult is- $insert_query_custLogin_result -') </script>"; // ###
+
+      if ($insert_query_cust_result && $insert_query_custLogin_result) {
+        echo "<script> alert('User Registered successfully') </script>";
+      }
+    }
+  }
+}
+?>

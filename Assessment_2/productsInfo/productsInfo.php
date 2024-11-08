@@ -1,3 +1,8 @@
+<?php
+session_start();  // Start session
+include("../sources/php/db.php"); // Connect to database
+?>
+
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 
@@ -146,19 +151,19 @@
 </nav> -->
 
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-  <header class="mb-auto">
-    <div>
-      <h3 class="float-md-start mb-0">Future Fit</h3>
-      <nav class="nav nav-masthead justify-content-center float-md-end">
-        <a class="nav-link fw-bold py-1 px-0" aria-current="page" href="../homepage/home.php">Home</a>
-        <a class="nav-link fw-bold py-1 px-0 active" href="../productsInfo/productsInfo.php">Products & Services</a>
-        <a class="nav-link fw-bold py-1 px-0" href="#">Contact</a>
-        <a class="nav-link fw-bold py-1 px-0" href="../dashboard/dashboard.php">Account</a>
-      </nav>
-    </div>
-  </header>
+    <header class="mb-auto px-5">
+      <div>
+        <h3 class="float-md-start mb-0">Future Fit</h3>
+
+        <nav class="nav nav-masthead justify-content-center float-md-end">
+          <a class="nav-link fw-bold py-1 px-0" aria-current="page" href="../homepage/home.php">Home</a> &nbsp;
+          <a class="nav-link fw-bold py-1 px-0 active" href="../productsInfo/productsInfo.php">Our Products</a>&nbsp;
+          <a class="nav-link fw-bold py-1 px-0" href="" data-bs-toggle="modal" data-bs-target="#signInModal">Sign In</a>&nbsp;
+        </nav>
+      </div>
+    </header>
   </div>
-  
+
   <main>
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
       <div class="col-md-6 p-lg-5 mx-auto my-5">
@@ -307,10 +312,24 @@
       </div>
     </div>
   </footer>
-  
-  
+
+  <!-- Modals -->
+  <!-- Modal - Sign In -->
+  <div class="modal fade" id="signInModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="signInModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <?php
+        include('../homepage/sign-in.php');
+        ?>
+
+      </div>
+    </div>
+  </div>
+
+
   <script src="../sources/assets/js/color-modes.js"></script>
-<script src="../sources/assets/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../sources/assets/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
