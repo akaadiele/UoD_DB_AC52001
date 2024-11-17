@@ -1,6 +1,15 @@
 <?php
 session_start();  // Start session
 include("../sources/php/db.php"); // Connect to database
+include("../sources/php/functions.php"); // custom functions
+
+if (isset($loggedInUsername)) {
+  $loggedInUsername = $_SESSION["loggedInUsername"];
+  $userType = $_SESSION["loggedInUserType"];
+  $loggedInId = $_SESSION["loggedInId"];
+  
+  $loggedInStatus = "Y";
+}
 ?>
 
 <!doctype html>
@@ -116,39 +125,6 @@ include("../sources/php/db.php"); // Connect to database
     </symbol>
   </svg>
 
-  <!-- <nav class="navbar navbar-expand-md bg-dark sticky-top border-bottom" data-bs-theme="dark">
-  <div class="container">
-    <a class="navbar-brand d-md-none" href="#">
-      <svg class="bi" width="24" height="24"><use xlink:href="#aperture"/></svg>
-      Aperture
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasLabel">Aperture</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav flex-grow-1 justify-content-between">
-          <li class="nav-item"><a class="nav-link" href="#">
-            <svg class="bi" width="24" height="24"><use xlink:href="#aperture"/></svg>
-          </a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Tour</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Product</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Enterprise</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Support</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">
-            <svg class="bi" width="24" height="24"><use xlink:href="#cart"/></svg>
-          </a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</nav> -->
 
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="mb-auto px-5">
@@ -158,7 +134,14 @@ include("../sources/php/db.php"); // Connect to database
         <nav class="nav nav-masthead justify-content-center float-md-end">
           <a class="nav-link fw-bold py-1 px-0" aria-current="page" href="../homepage/home.php">Home</a> &nbsp;
           <a class="nav-link fw-bold py-1 px-0 active" href="../productsInfo/productsInfo.php">Our Products</a>&nbsp;
-          <a class="nav-link fw-bold py-1 px-0" href="" data-bs-toggle="modal" data-bs-target="#signInModal">Sign In</a>&nbsp;
+
+          <?php if ($loggedInStatus = "Y") {
+            echo '<a class="nav-link fw-bold py-1 px-0" href="" data-bs-toggle="modal" data-bs-target="#signInModal">Sign In</a>&nbsp;';
+          } else {
+            echo '<a class="nav-link fw-bold py-1 px-0" aria-current="page" href="../dashboard/index.php">Account</a> &nbsp;';
+          }
+          ?>
+          
         </nav>
       </div>
     </header>

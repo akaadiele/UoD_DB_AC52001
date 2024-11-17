@@ -28,7 +28,7 @@
                 Orders
             </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link d-flex align-items-center gap-2 <?php if (isset($_GET['products'])) {
                                                                     echo "active";
                                                                 } ?>" href="index.php?products">
@@ -37,8 +37,8 @@
                 </svg>
                 Products
             </a>
-        </li>
-        <li class="nav-item">
+        </li> -->
+        <!-- <li class="nav-item">
             <a class="nav-link d-flex align-items-center gap-2 <?php if (isset($_GET['customers'])) {
                                                                     echo "active";
                                                                 } ?>" href="index.php?customers">
@@ -47,8 +47,8 @@
                 </svg>
                 Customers
             </a>
-        </li>
-        <li class="nav-item">
+        </li> -->
+        <!-- <li class="nav-item">
             <a class="nav-link d-flex align-items-center gap-2 <?php if (isset($_GET['employees'])) {
                                                                     echo "active";
                                                                 } ?>" href="index.php?employees">
@@ -57,7 +57,7 @@
                 </svg>
                 Employees
             </a>
-        </li>
+        </li> -->
 
         <!-- ### -->
         <li class="nav-item">
@@ -70,7 +70,7 @@
                 Appointments
             </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link d-flex align-items-center gap-2 <?php if (isset($_GET['suppliers'])) {
                                                                     echo "active";
                                                                 } ?>" href="index.php?suppliers">
@@ -79,7 +79,7 @@
                 </svg>
                 Suppliers
             </a>
-        </li>
+        </li> -->
         <!-- ### -->
 
     </ul>
@@ -88,14 +88,13 @@
 
     <ul class="nav flex-column mb-auto">
         <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2 active" href="../productsInfo/productsInfo.php">
+            <a class="nav-link d-flex align-items-center gap-2" href="../productsInfo/productsInfo.php">
                 <svg class="bi">
-                    <use xlink:href="#people" />
+                    <use xlink:href="#cart" />
                 </svg>
                 Product Catalog
             </a>
         </li>
-
         <li class="nav-item">
             <a class="nav-link d-flex align-items-center gap-2 <?php if (isset($_GET['settings'])) {
                                                                     echo "active";

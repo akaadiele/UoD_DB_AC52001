@@ -33,7 +33,12 @@
     <tbody>
 
       <?php
-      $select_query = "SELECT saleId, customerId, timePlaced, itemId, itemQuantity, saleStatusId, totalCost FROM `sale`";
+      if ($userType == "customer") {
+        $select_query = "SELECT saleId, customerId, timePlaced, itemId, itemQuantity, saleStatusId, totalCost FROM `sale` WHERE customerId = '$loggedInId'";
+      } elseif ($userType == "employee") {
+        $select_query = "SELECT saleId, customerId, timePlaced, itemId, itemQuantity, saleStatusId, totalCost FROM `sale`";
+      }
+
       $query_result = mysqli_query($mysql, $select_query);
       while ($row = mysqli_fetch_assoc($query_result)) {
         $saleId = $row['saleId'];
@@ -51,7 +56,7 @@
         echo "<td>$itemId</td>";
         echo "<td>$itemQuantity</td>";
         echo "<td>$saleStatusId</td>";
-        echo "<td>$totalCost</td>";        
+        echo "<td>$totalCost</td>";
         echo "</tr>";
       }
       ?>

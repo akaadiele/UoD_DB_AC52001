@@ -26,7 +26,7 @@
         <th scope="col">itemHeight</th>
         <th scope="col">itemWidth</th>
         <th scope="col">itemLength</th>
-        <th scope="col">weight</th>
+        <th scope="col">itemWeight</th>
         <th scope="col">sellPrice</th>
         <th scope="col">supplierPrice</th>
         <th scope="col">supplierId</th>
@@ -35,39 +35,45 @@
     </thead>
 
     <tbody>
+      <tr>
 
-      <?php
-      $select_query = "SELECT itemId, itemName, itemDescription, itemHeight, itemWidth, itemLength, weight, sellPrice, supplierPrice, supplierId, categoryId FROM `item`";
-      $query_result = mysqli_query($mysql, $select_query);
-      while ($row = mysqli_fetch_assoc($query_result)) {
-        $itemId = $row['itemId'];
-        $itemName = $row['itemName'];
-        $itemDescription = $row['itemDescription'];
-        $itemHeight = $row['itemHeight'];
-        $itemWidth = $row['itemWidth'];
-        $itemLength = $row['itemLength'];
-        $weight = $row['weight'];
-        $sellPrice = $row['sellPrice'];
-        $supplierPrice = $row['supplierPrice'];
-        $supplierId = $row['supplierId'];
-        $categoryId = $row['categoryId'];
+        <?php
+        $select_query = "SELECT itemId, itemName, itemDescription, itemHeight, itemWidth, itemLength, itemWeight, sellPrice, supplierPrice, supplierId, categoryId FROM `item`";
+        $query_result = mysqli_query($mysql, $select_query);
+        while ($row = mysqli_fetch_assoc($query_result)) {
+          $itemId = $row['itemId'];
+          $itemName = $row['itemName'];
+          $itemDescription = $row['itemDescription'];
+          $itemHeight = $row['itemHeight'];
+          $itemWidth = $row['itemWidth'];
+          $itemLength = $row['itemLength'];
+          $itemWeight = $row['itemWeight'];
+          $sellPrice = $row['sellPrice'];
+          $supplierPrice = $row['supplierPrice'];
+          $supplierId = $row['supplierId'];
+          $categoryId = $row['categoryId'];
 
-        echo "<tr>";
-        echo "<td>$itemId</td>";
-        echo "<td>$itemName</td>";
-        echo "<td>$itemDescription</td>";
-        echo "<td>$itemHeight</td>";
-        echo "<td>$itemWidth</td>";
-        echo "<td>$itemLength</td>";
-        echo "<td>$weight</td>";
-        echo "<td>$sellPrice</td>";
-        echo "<td>$supplierPrice</td>";
-        echo "<td>$supplierId</td>";
-        echo "<td>$categoryId</td>";
-        echo "</tr>";
-      }
-      ?>
+          echo "<td>$itemId</td>";
+          echo "<td>$itemName</td>";
+          echo "<td>$itemDescription</td>";
+          echo "<td>$itemHeight</td>";
+          echo "<td>$itemWidth</td>";
+          echo "<td>$itemLength</td>";
+          echo "<td>$itemWeight</td>";
+          echo "<td>$sellPrice</td>";
+          echo "<td>$supplierPrice</td>";
+          echo "<td>$supplierId</td>";
+          echo "<td>$categoryId</td>";
 
+
+        ?>
+          <!--  -->
+          <td><a class="nav-link d-flex align-items-center gap-2" href="index.php?edit-product=<?php echo $itemId ?>"><i class="fa-regular fa-pen-to-square"></i></a></td>
+          <td><a class="nav-link d-flex align-items-center gap-2" href="index.php?delete-product=<?php echo $itemId ?>"><i class="fa-solid fa-trash"></i></a></td>
+      </tr>
+    <?php
+        }
+    ?>
     </tbody>
   </table>
 </div>
@@ -133,7 +139,6 @@
       <div class="modal-body">
 
         <form method="post" action="">
-
 
           <div class="form-floating mb-3">
             <select name="productCategory" id="productCategory" class="form-select form-select-sm form-control rounded-3">
@@ -213,3 +218,4 @@
     </div>
   </div>
 </div>
+

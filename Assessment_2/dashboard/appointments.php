@@ -33,7 +33,12 @@
     <tbody>
 
       <?php
-      $select_query = "SELECT appointmentId, customerId, employeeId, appointmentTime, appointmentDate, appointmentLocation, agreedFee FROM `consultancyappointment`";
+      if ($userType == "customer") {
+        $select_query = "SELECT appointmentId, customerId, employeeId, appointmentTime, appointmentDate, appointmentLocation, agreedFee FROM `consultancyappointment` WHERE customerId = '$loggedInId'";
+      } elseif ($userType == "employee") {
+        $select_query = "SELECT appointmentId, customerId, employeeId, appointmentTime, appointmentDate, appointmentLocation, agreedFee FROM `consultancyappointment`";
+      }
+
       $query_result = mysqli_query($mysql, $select_query);
       while ($row = mysqli_fetch_assoc($query_result)) {
         $appointmentId = $row['appointmentId'];

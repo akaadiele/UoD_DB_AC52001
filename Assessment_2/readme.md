@@ -71,3 +71,11 @@ if (isset($_SESSION['views'])) {
 <?php
 echo "<script> alert('hi') </script>";
 ?>
+
+
+
+<!-- Linking Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<!-- Linking Animate CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">

@@ -2,9 +2,49 @@
 session_start();  // Start session
 include("../sources/php/db.php"); // Connect to database
 
+$loggedInUsername = $_SESSION["loggedInUsername"];
+$userType = $_SESSION["loggedInUserType"];
+$loggedInId = $_SESSION["loggedInId"];
+
 // echo $_SESSION["loggedInUsername"];
 // echo $_SESSION["loggedInUserType"];
 // echo $_SESSION["loggedInId"];
+
+// ------------------------------------------------------
+// Spool data for customer or employee
+if ($userType == "customer") {
+    // Spool the user's info from customer table
+    // $select_query = "SELECT customerId, customerName, customerEmail, customerPhone, customerAddress, customerTypeId FROM `customer` WHERE customerId = '$loggedInId' ";
+    $select_query = "SELECT * FROM customer_personal_view WHERE customerUsername = '$loggedInUsername' ";
+    
+    $query_result = mysqli_query($mysql, $select_query);
+    $row = mysqli_fetch_assoc($query_result);
+
+    // $loggedInUser_Id = $row['customerId'];
+    $loggedInUser_FullName = $row['customerName'];
+    $loggedInUser_Email = $row['customerEmail'];
+    $loggedInUser_Phone = $row['customerPhone'];
+    $loggedInUser_Address = $row['customerAddress'];
+    $loggedInUser_TypeId = $row['customerType'];
+} elseif ($userType == "employee") {
+    // Spool the user's info from employee table
+    $select_query = "SELECT * FROM `employee_personal_view` WHERE employeeUsername = '$loggedInUsername' ";
+    
+    $query_result = mysqli_query($mysql, $select_query);
+    $row = mysqli_fetch_assoc($query_result);
+
+    $firstName = $row['firstName']; $lastName = $row['lastName'];
+    $loggedInUser_FullName = $firstName . ' ' . $lastName;
+    
+    $loggedInUser_Email = $row['employeeEmail'];
+    $yearlySalary = $row['yearlySalary'];
+    $branchId = $row['branchId'];
+    $branchName = $row['branchName'];
+    $branchLocation = $row['branchLocation'];
+    $privilegeLevel = $row['privilegeLevel'];
+}
+
+$_SESSION["loggedInUser_FullName"] = $loggedInUser_FullName
 ?>
 
 <!doctype html>
@@ -19,9 +59,6 @@ include("../sources/php/db.php"); // Connect to database
     <title>Dashboard</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/dashboard/">
-
-
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
     <link href="../sources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -32,6 +69,10 @@ include("../sources/php/db.php"); // Connect to database
     <link href="dashboard.css" rel="stylesheet">
     <!-- Linking browser tab icon -->
     <link rel="icon" href="../sources/img/future-fit-image.ico">
+
+    <!-- Linking Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
 </head>
 
 
@@ -202,9 +243,13 @@ include("../sources/php/db.php"); // Connect to database
                 <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu"
                     aria-labelledby="sidebarMenuLabel">
 
-                    <!-- ### -->
                     <?php
-                    include('sidebar-full.php')
+                    // include('sidebar-full.php');
+                    if ($userType == "customer") {
+                        include('sidebar-customer.php');
+                    } elseif ($userType == "employee") {
+                        include('sidebar-employee.php');
+                    }
                     ?>
 
                 </div>
@@ -231,6 +276,10 @@ include("../sources/php/db.php"); // Connect to database
                     include('suppliers.php');
                 } elseif (isset($_GET['settings'])) {
                     include('settings.php');
+                } elseif (isset($_GET['edit-product'])) {
+                    include('./admin/edit-product.php');
+                } elseif (isset($_GET['delete-product'])) {
+                    include('./admin/delete-product.php');
                 } else {
                     include('dashboard.php');
                 }
@@ -264,15 +313,3 @@ include("../sources/php/db.php"); // Connect to database
 
 </html>
 
-<?php
-if (isset($_POST['userLogOut'])) {
-    // remove all session variables
-    session_unset();
-
-    // destroy the session
-    session_destroy();
-    
-    echo "<script> alert('User Logged Out') </script>";
-    echo '<script> window.open("../homepage/index.php", "_self") </script>';
-}
-?>

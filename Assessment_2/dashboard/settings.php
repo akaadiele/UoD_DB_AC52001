@@ -1,9 +1,5 @@
 <?php
 
-$loggedInUsername = $_SESSION["loggedInUsername"];
-$userType = $_SESSION["loggedInUserType"];
-$loggedInId = $_SESSION["loggedInId"];
-
 if ($userType == "customer") {
   // Spool the user's info from customer table
   $select_query = "SELECT customerId, customerName, customerEmail, customerPhone, customerAddress, customerTypeId FROM `customer` WHERE customerId = '$loggedInId' ";
@@ -40,7 +36,7 @@ if ($userType == "customer") {
   <h1 class="h2">Settings</h1>
   <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group me-3">
-      <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#updateAccountModal">Update</button>
+      <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#updateAccountModal">Update Password</button>
     </div>
   </div>
 </div>
@@ -55,12 +51,12 @@ if ($userType == "customer") {
 
   <div class="input-group mb-3">
     <span class="input-group-text" id="basic-addon1">Full Name</span>
-    <input type="text" class="form-control" placeholder="<?php echo $loggedInUser_FullName ?>" aria-label="Username" aria-describedby="basic-addon1">
+    <input type="text" class="form-control" placeholder="<?php echo $loggedInUser_FullName ?>" aria-label="Username" aria-describedby="basic-addon1" disabled>
   </div>
 
   <div class="input-group mb-3">
     <span class="input-group-text" id="basic-addon1">Email</span>
-    <input type="text" class="form-control" placeholder="<?php echo $loggedInUser_Email ?>" aria-label="Username" aria-describedby="basic-addon1">
+    <input type="text" class="form-control" placeholder="<?php echo $loggedInUser_Email ?>" aria-label="Username" aria-describedby="basic-addon1" disabled>
   </div>
 
   <?php
@@ -68,35 +64,35 @@ if ($userType == "customer") {
     echo '
     <div class="input-group mb-3">
       <span class="input-group-text" id="basic-addon1">Phone</span>
-      <input type="text" class="form-control" placeholder="' . $loggedInUser_Phone . '" aria-label="Username" aria-describedby="basic-addon1">
+      <input type="text" class="form-control" placeholder="' . $loggedInUser_Phone . '" aria-label="Username" aria-describedby="basic-addon1" disabled>
     </div>
 
     <div class="input-group mb-3">
       <span class="input-group-text" id="basic-addon1">Address</span>
-      <input type="text" class="form-control" placeholder="' . $loggedInUser_Address . '" aria-label="Username" aria-describedby="basic-addon1">
+      <input type="text" class="form-control" placeholder="' . $loggedInUser_Address . '" aria-label="Username" aria-describedby="basic-addon1" disabled>
     </div>
 
     <div class="input-group mb-3">
       <span class="input-group-text" id="basic-addon1">User Type</span>
-      <input type="text" class="form-control" placeholder="' . $loggedInUser_TypeId . '" aria-label="Username" aria-describedby="basic-addon1">
+      <input type="text" class="form-control" placeholder="' . $loggedInUser_TypeId . '" aria-label="Username" aria-describedby="basic-addon1" disabled>
     </div> ';
   } elseif ($userType == "employee") {
     echo '
       <div class="input-group mb-3">
       <span class="input-group-text" id="basic-addon1">Salary Bracket</span>
-      <input type="text" class="form-control" placeholder="' . $salaryBracketId . '" aria-label="Username" aria-describedby="basic-addon1">
+      <input type="text" class="form-control" placeholder="' . $salaryBracketId . '" aria-label="Username" aria-describedby="basic-addon1" disabled>
     </div>
 
       
       <div class="input-group mb-3">
       <span class="input-group-text" id="basic-addon1">Privilege Level</span>
-      <input type="text" class="form-control" placeholder="' . $privilegeLevelId . '" aria-label="Username" aria-describedby="basic-addon1">
+      <input type="text" class="form-control" placeholder="' . $privilegeLevelId . '" aria-label="Username" aria-describedby="basic-addon1" disabled>
     </div>
 
       
       <div class="input-group mb-3">
       <span class="input-group-text" id="basic-addon1">Branch</span>
-      <input type="text" class="form-control" placeholder="' . $branchId . '" aria-label="Username" aria-describedby="basic-addon1">
+      <input type="text" class="form-control" placeholder="' . $branchId . '" aria-label="Username" aria-describedby="basic-addon1" disabled>
     </div> ';
   }
 
@@ -112,7 +108,7 @@ if ($userType == "customer") {
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="updateAccountModalLabel">Update Info</h1>
+        <h1 class="modal-title fs-5" id="updateAccountModalLabel">Update Password</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
@@ -120,29 +116,28 @@ if ($userType == "customer") {
 
         <form method="post" action="">
 
-        <?php
-          if ($userType == "customer") {
-            echo '<div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Email</span>
-            <input type="text" class="form-control" placeholder="'.$loggedInUser_Email.'" name="update_Email" aria-label="update_Email" aria-describedby="basic-addon1">
-          </div> 
-          <hr class="my-2"> ';
-          }
-          ?>
+          <!-- <?php
+                // if ($userType == "customer") {
+                //   echo '<div class="input-group mb-3">
+                //   <span class="input-group-text" id="basic-addon1">Email</span>
+                //   <input type="text" class="form-control" placeholder="' . $loggedInUser_Email . '" name="update_Email" aria-label="update_Email" aria-describedby="basic-addon1">
+                // </div> 
+                // <hr class="my-2"> ';
+                // }
+                ?> -->
 
-          
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Current Password</span>
-            <input type="text" class="form-control" placeholder="" name="update_CurrentPassword" aria-label="update_CurrentPassword" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" placeholder="" name="update_CurrentPassword" aria-label="update_CurrentPassword" aria-describedby="basic-addon1" required>
           </div>
 
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">New Password</span>
-            <input type="text" class="form-control" placeholder="" name="update_NewPassword" aria-label="update_NewPassword" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" placeholder="" name="update_NewPassword" aria-label="update_NewPassword" aria-describedby="basic-addon1" required>
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Re-type New Password</span>
-            <input type="text" class="form-control" placeholder="" name="update_NewPassword2" aria-label="update_NewPassword2" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" placeholder="" name="update_NewPassword2" aria-label="update_NewPassword2" aria-describedby="basic-addon1" required>
           </div>
 
           <hr class="my-4">
@@ -158,37 +153,69 @@ if ($userType == "customer") {
 
 <?php
 if (isset($_POST['updateInfo'])) {
-  $update_Email = $_POST['update_Email'];
+  $updated = "";
 
+  // $update_Email = $_POST['update_Email'];
   $update_CurrentPassword = $_POST['update_CurrentPassword'];
-
   $update_NewPassword = $_POST['update_NewPassword'];
-
   $update_NewPassword2 = $_POST['update_NewPassword2'];
 
+  if ($update_CurrentPassword == $update_NewPassword) {
+    echo "<script> alert('New password must be different') </script>";
+    echo '<script> window.open("index.php?settings", "_self") </script>';
+  } elseif ($update_NewPassword == $update_NewPassword2) {
 
-  if ($userType == "customer") {
-    $insert_query = "INSERT INTO `Customer` (customerEmail`,`customerPhone`,`customerAddress`) VALUES ('oscott@yahoo.com','07123123123','Newcastle')";
-    $insert_query_result = mysqli_query($mysql, $insert_query);
-
-    $insert_query2 = "INSERT INTO `CustomerLogin` (`customerPassword`) VALUES ('Cust001')";
-    $insert_query2_result = mysqli_query($mysql, $insert_query2);
-
-    if ( ($insert_query_result) AND ($insert_query2_result) ) {
-      $updated = "Y";
+    if ($userType == "customer") {
+      $select_query_pwCheck = "SELECT `customerId`,`customerUsername`,`customerPassword` FROM `CustomerLogin` WHERE customerUsername = '$loggedInUsername' AND customerPassword = '$update_CurrentPassword' ";
+    } elseif ($userType == "employee") {
+      $select_query_pwCheck = "SELECT `employeeId`,`employeeUsername`,`employeePassword` FROM `employeeLogin` WHERE employeeUsername = '$loggedInUsername' AND employeePassword = '$update_CurrentPassword' ";
     }
-  } elseif ($userType == "employee") {
-    $insert_query = "INSERT INTO `EmployeeLogin` (`employeePassword`) VALUES ('Emp0001')";
-    $insert_query_result = mysqli_query($mysql, $insert_query);
 
-    if ( $insert_query_result ) {
-      $updated = "Y";
+    $select_query_pwCheck_result = mysqli_query($mysql, $select_query_pwCheck);
+    $select_query_pwCheck_result_numRows = mysqli_num_rows($select_query_pwCheck_result);
+
+    if ($select_query_pwCheck_result_numRows > 0) {
+      $row_pwCheck = mysqli_fetch_assoc($select_query_pwCheck_result);
+
+      if ($userType == "customer") {
+        $customerId_pwCheck = $row_pwCheck['customerId'];
+        $customerUsername_pwCheck = $row_pwCheck['customerUsername'];
+        $customerPassword_pwCheck = $row_pwCheck['customerPassword'];
+
+        $insert_query = "UPDATE `CustomerLogin` SET `customerPassword` = '$update_NewPassword' WHERE customerId = '$loggedInId'";
+        $insert_query_result = mysqli_query($mysql, $insert_query);
+        if ($insert_query_result) {
+          $updated = "Y";
+        }
+        // $insert_query2 = "INSERT INTO `Customer` (customerEmail`,`customerPhone`,`customerAddress`) VALUES ('oscott@yahoo.com','07123123123','Newcastle')";
+        // $insert_query2_result = mysqli_query($mysql, $insert_query2);
+        // if ($insert_query2_result) {
+        //   $updated = "Y";
+        // }
+      } elseif ($userType == "employee") {
+        $employeeId_pwCheck = $row_pwCheck['employeeId'];
+        $employeeUsername_pwCheck = $row_pwCheck['employeeUsername'];
+        $employeePassword_pwCheck = $row_pwCheck['employeePassword'];
+
+        $insert_query3 = "UPDATE `employeeLogin` SET `employeePassword` = '$update_NewPassword' WHERE employeeId = '$loggedInId'";
+        $insert_query3_result = mysqli_query($mysql, $insert_query3);
+        if ($insert_query3_result) {
+          $updated = "Y";
+        }
+      }
+    } else {
+      echo "<script> alert('Incorrect Current Password ') </script>";
+      echo '<script> window.open("index.php?settings", "_self") </script>';
     }
+  } else {
+    echo "<script> alert('New passwords do not match ') </script>";
+    echo '<script> window.open("index.php?settings", "_self") </script>';
   }
 
   if ($updated == "Y") {
-    echo "<script> alert('Category added successfully') </script>";
-    echo '<script> window.open("index.php", "_self") </script>';
+    echo "<script> alert('Password updated successfully') </script>";
+    echo '<script> window.open("index.php?settings", "_self") </script>';
   }
 }
+
 ?>

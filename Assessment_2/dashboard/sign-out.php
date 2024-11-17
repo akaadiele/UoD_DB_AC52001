@@ -11,3 +11,17 @@
     <button class="btn btn-primary w-100 py-2" type="submit" name="userLogOut">Sign Out</button>
   </form>
 </div>
+
+
+<?php
+if (isset($_POST['userLogOut'])) {
+    // remove all session variables
+    session_unset();
+
+    // destroy the session
+    session_destroy();
+
+    echo "<script> alert('User Logged Out') </script>";
+    echo '<script> window.open("../homepage/index.php", "_self") </script>';
+}
+?>
