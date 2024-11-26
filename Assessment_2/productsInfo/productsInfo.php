@@ -3,11 +3,13 @@ session_start();  // Start session
 include("../sources/php/db.php"); // Connect to database
 include("../sources/php/functions.php"); // custom functions
 
-if (isset($loggedInUsername)) {
+$loggedInStatus = "";
+if (isset($_SESSION["loggedInUsername"])) {
   $loggedInUsername = $_SESSION["loggedInUsername"];
   $userType = $_SESSION["loggedInUserType"];
   $loggedInId = $_SESSION["loggedInId"];
-  
+  $loggedInUserPrivilegeLevel = $_SESSION["loggedInUserPrivilegeLevel"];
+
   $loggedInStatus = "Y";
 }
 ?>
@@ -135,13 +137,13 @@ if (isset($loggedInUsername)) {
           <a class="nav-link fw-bold py-1 px-0" aria-current="page" href="../homepage/home.php">Home</a> &nbsp;
           <a class="nav-link fw-bold py-1 px-0 active" href="../productsInfo/productsInfo.php">Our Products</a>&nbsp;
 
-          <?php if ($loggedInStatus = "Y") {
-            echo '<a class="nav-link fw-bold py-1 px-0" href="" data-bs-toggle="modal" data-bs-target="#signInModal">Sign In</a>&nbsp;';
-          } else {
+          <?php if ($loggedInStatus == "Y") {
             echo '<a class="nav-link fw-bold py-1 px-0" aria-current="page" href="../dashboard/index.php">Account</a> &nbsp;';
+          } else {
+            echo '<a class="nav-link fw-bold py-1 px-0" href="" data-bs-toggle="modal" data-bs-target="#signInModal">Sign In</a>&nbsp;';
           }
           ?>
-          
+
         </nav>
       </div>
     </header>
@@ -150,46 +152,102 @@ if (isset($loggedInUsername)) {
   <main>
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
       <div class="col-md-6 p-lg-5 mx-auto my-5">
-        <h1 class="display-3 fw-bold">Designed for engineers</h1>
-        <h3 class="fw-normal text-muted mb-3">Build anything you want with Aperture</h3>
+        <h1 class="display-4 fw-bold">Not sure how to start?</h1>
+        <h3 class="fw-normal text-muted mb-3">Book and appointment with us today</h3>
         <div class="d-flex gap-3 justify-content-center lead fw-normal">
-          <a class="icon-link" href="#">
-            Learn more
-            <svg class="bi">
-              <use xlink:href="#chevron-right" />
-            </svg>
-          </a>
-          <a class="icon-link" href="#">
+
+          <?php
+          if ($loggedInStatus == "Y") {
+            echo '<a class="icon-link" href="" data-bs-toggle="modal" data-bs-target="#appointmentModal"><em>Make a booking</em> <svg class="bi"><use xlink:href="#chevron-right" /></svg> </a>';
+          } else {
+            echo '<a class="icon-link" href="#"><em>Sign in to make a booking</em> <svg class="bi"><use xlink:href="#chevron-right" /></svg> </a>';
+          }
+          ?>
+          <!-- <a class="icon-link" href="#">
             Buy
             <svg class="bi">
               <use xlink:href="#chevron-right" />
             </svg>
-          </a>
+          </a> -->
         </div>
       </div>
       <div class="product-device shadow-sm d-none d-md-block"></div>
       <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
     </div>
 
-    <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+
+    <div class="row justify-content-center w-100 my-md-1 ps-md-1">
+      <?php
+      $select_query = "SELECT * FROM `item`";
+      // $select_query = "SELECT * FROM `item` WHERE itemId = 5";
+      $query_result = mysqli_query($mysql, $select_query);
+
+      // $row = mysqli_fetch_assoc($query_result); 
+      while ($row = mysqli_fetch_assoc($query_result)) {
+        $itemId = $row['itemId'];
+        $itemName = $row['itemName'];
+        $itemDescription = $row['itemDescription'];
+        $itemHeight = $row['itemHeight'];
+        $itemWidth = $row['itemWidth'];
+        $itemLength = $row['itemLength'];
+        $itemWeight = $row['itemWeight'];
+        $sellPrice = $row['sellPrice'];
+        $supplierPrice = $row['supplierPrice'];
+        $supplierId = $row['supplierId'];
+        $categoryId = $row['categoryId'];
+
+
+        echo '<div class="bg-body-tertiary mx-md-2 pt-3 px-1 pt-md-1 px-md-1 text-center overflow-hidden col-3 my-2">
+        <div class="my-3 p-3">
+          <h2 class="display-6">' . $itemName . '</h2>
+          <p class="lead"><small>Price: £' . $sellPrice . '</small></p>';
+
+        if ($loggedInStatus == "Y") {
+          echo '<a class="icon-link" href="create-order.php?product-id=' . $itemId . '"><em>Order</em></a>';
+        } else {
+          echo '<a class="icon-link" href="create-order.php?product-id=' . $itemId . '" data-bs-toggle="modal" data-bs-target="#signInModal"><em>Sign in to order</em></a>';
+        }
+
+        echo '</div>
+        <div class="bg-dark shadow-sm mx-auto mb-2 align-items-center py-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+          <img src="../sources/img/products_images/' . $itemId . '.jpg" alt="Item ' . $itemId . '" class="img-thumbnail">
+        </div>
+      </div>';
+
+
+
+        // img-fluid img-thumbnail card-img-top
+      }
+      ?>
+
+    </div>
+
+    <!-- <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+      <div class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden"> -->
+
+
+
+    <!-- <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
       <div class="text-bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
         <div class="my-3 py-3">
           <h2 class="display-5">Another headline</h2>
           <p class="lead">And an even wittier subheading.</p>
         </div>
         <div class="bg-body-tertiary shadow-sm mx-auto"
-          style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+          style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+        </div>
       </div>
       <div class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
         <div class="my-3 p-3">
           <h2 class="display-5">Another headline</h2>
           <p class="lead">And an even wittier subheading.</p>
         </div>
-        <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+        <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+        </div>
       </div>
-    </div>
+    </div> -->
 
-    <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+    <!-- <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
       <div class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
         <div class="my-3 p-3">
           <h2 class="display-5">Another headline</h2>
@@ -239,10 +297,16 @@ if (isset($loggedInUsername)) {
         </div>
         <div class="bg-body shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
       </div>
-    </div>
+    </div> -->
+
   </main>
 
-  <footer class="container py-5">
+
+  <footer class="mt-auto text-white-50">
+    <p>Made with features from <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a></p>
+  </footer>
+
+  <!-- <footer class="container py-5">
     <div class="row">
       <div class="col-12 col-md">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
@@ -294,7 +358,7 @@ if (isset($loggedInUsername)) {
         </ul>
       </div>
     </div>
-  </footer>
+  </footer> -->
 
   <!-- Modals -->
   <!-- Modal - Sign In -->
@@ -309,6 +373,35 @@ if (isset($loggedInUsername)) {
       </div>
     </div>
   </div>
+
+  <!-- Modal - Sign Up -->
+  <div class="modal fade" id="signUpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <?php
+        include('../homepage/sign-up.php');
+        ?>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal - Appointment -->
+  <div class="modal fade" id="appointmentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <?php
+        include('create-appointment.php');
+        ?>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modals -->
 
 
   <script src="../sources/assets/js/color-modes.js"></script>

@@ -70,7 +70,7 @@
                 Appointments
             </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link d-flex align-items-center gap-2 <?php if (isset($_GET['suppliers'])) {
                                                                     echo "active";
                                                                 } ?>" href="index.php?suppliers">
@@ -79,7 +79,7 @@
                 </svg>
                 Suppliers
             </a>
-        </li>
+        </li> -->
         <!-- ### -->
 
     </ul>

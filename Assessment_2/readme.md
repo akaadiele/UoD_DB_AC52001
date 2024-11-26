@@ -10,11 +10,12 @@ include("../php/db.php")
 <!-- Connect to database -->
 
 <?php
-// Connect to database
-include("../sources/php/db.php");
+session_start();  // Start session
+include("../sources/php/db.php"); // Connect to database
+include("../sources/php/functions.php"); // custom functions
 ?>
 
-include("../sources/php/functions.php");
+
 
 
 <?php

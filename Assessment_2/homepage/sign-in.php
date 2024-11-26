@@ -44,7 +44,7 @@
 <!-- ------------------------------------------------------------------------------------ -->
 <!-- Sign in logic -->
 <?php
-
+$loginStatus = "";
 if (isset($_POST['userLogInButton'])) {
   $username = $_POST['username'];
   $userPassword = $_POST['userPassword'];
@@ -65,23 +65,35 @@ if (isset($_POST['userLogInButton'])) {
         $loggedInUsername = $row['customerUsername'];
 
 
+        $select_query_userDetails = "SELECT privilegeLevelId FROM `customer` WHERE customerId = '$loggedInId' ";
+        $select_query_userDetails_result = mysqli_query($mysql, $select_query_userDetails);
+        $select_query_userDetails_result_numRows = mysqli_num_rows($select_query_userDetails_result);
+        $row_userDetails = mysqli_fetch_assoc($select_query_userDetails_result);
+        $loggedInUserPrivilegeLevelId = $row_userDetails['privilegeLevelId'];
+
+
+        $select_query_privilegeLvl = "SELECT * FROM `privilegelevel` WHERE privilegeLevelId = '$loggedInUserPrivilegeLevelId' ";
+        $select_query_privilegeLvl_result = mysqli_query($mysql, $select_query_privilegeLvl);
+        $select_query_privilegeLvl_result_numRows = mysqli_num_rows($select_query_privilegeLvl_result);
+        $row_privilegeLvl = mysqli_fetch_assoc($select_query_privilegeLvl_result);
+        $loggedInUserPrivilegeLevel = $row_privilegeLvl['privilegeLevel'];
+
+
         $_SESSION["loggedInUsername"] = $loggedInUsername;
-        if (isset($_SESSION["loggedInUsername"])) {
-          // echo "<script> alert('---log username $loggedInUsername ---') </script>";
-        }
-
         $_SESSION["loggedInUserType"] = $userType;
-        if (isset($_SESSION["loggedInUserType"])) {
-          // echo "<script> alert('---user type $userType ---') </script>";
-        }
-
         $_SESSION["loggedInId"] = $loggedInId;
-        if (isset($_SESSION["loggedInId"])) {
-          // echo "<script> alert('---log id  $loggedInId ---') </script>";
-        }
+        $_SESSION["loggedInUserPrivilegeLevel"] = $loggedInUserPrivilegeLevel;
 
-        // echo "<script> alert('Login Successful') </script>";
-        echo '<script> window.open("../dashboard/index.php", "_self") </script>';
+        if ((isset($_SESSION["loggedInUsername"])) and (isset($_SESSION["loggedInUserType"])) and (isset($_SESSION["loggedInId"])) and (isset($_SESSION["loggedInUserPrivilegeLevel"]))) {
+          $loginStatus = "Y";
+          // echo "<script> alert('---log username $loggedInUsername ---') </script>";
+          // echo "<script> alert('---user type $userType ---') </script>";
+          // echo "<script> alert('---log id  $loggedInId ---') </script>";
+          // echo "<script> alert('---priv lvl - $loggedInUserPrivilegeLevel ---') </script>";
+
+          // echo "<script> alert('Login Successful') </script>";
+          echo '<script> window.open("../productsInfo/index.php", "_self") </script>';
+        }
       } else {
         echo "<script> alert('Invalid username or password') </script>";
       }
@@ -102,23 +114,27 @@ if (isset($_POST['userLogInButton'])) {
         $loggedInId = $row['employeeId'];
         $loggedInUsername = $row['employeeUsername'];
 
+        $select_query_userDetails = "SELECT privilegeLevel FROM `employee_personal_view` WHERE employeeId = '$loggedInId' ";
+        $select_query_userDetails_result = mysqli_query($mysql, $select_query_userDetails);
+        $select_query_userDetails_result_numRows = mysqli_num_rows($select_query_userDetails_result);
+        $row_userDetails = mysqli_fetch_assoc($select_query_userDetails_result);
+        $loggedInUserPrivilegeLevel = $row_userDetails['privilegeLevel'];
+
         $_SESSION["loggedInUsername"] = $loggedInUsername;
-        if (isset($_SESSION["loggedInUsername"])) {
-          // echo "<script> alert('---log username $loggedInUsername ---') </script>";
-        }
-
         $_SESSION["loggedInUserType"] = $userType;
-        if (isset($_SESSION["loggedInUserType"])) {
-          // echo "<script> alert('---user type $userType ---') </script>";
-        }
-
         $_SESSION["loggedInId"] = $loggedInId;
-        if (isset($_SESSION["loggedInId"])) {
-          // echo "<script> alert('---log id  $loggedInId ---') </script>";
-        }
+        $_SESSION["loggedInUserPrivilegeLevel"] = $loggedInUserPrivilegeLevel;
 
-        // echo "<script> alert('Login Successful') </script>";
-        echo '<script> window.open("../dashboard/index.php", "_self") </script>';
+        if ((isset($_SESSION["loggedInUsername"])) and (isset($_SESSION["loggedInUserType"])) and (isset($_SESSION["loggedInId"])) and (isset($_SESSION["loggedInUserPrivilegeLevel"]))) {
+          $loginStatus = "Y";
+          // echo "<script> alert('---log username $loggedInUsername ---') </script>";
+          // echo "<script> alert('---user type $userType ---') </script>";
+          // echo "<script> alert('---log id  $loggedInId ---') </script>";
+          // echo "<script> alert('---priv lvl - $loggedInUserPrivilegeLevel ---') </script>";
+
+          // echo "<script> alert('Login Successful') </script>";
+          echo '<script> window.open("../dashboard/index.php", "_self") </script>';
+        }
       } else {
         echo "<script> alert('Invalid username or password') </script>";
       }
@@ -128,4 +144,27 @@ if (isset($_POST['userLogInButton'])) {
   }
 }
 
+
+if ($loginStatus == "Y") {
+
+  // Call procedure for 'user_login'
+  $p_user_id = '';
+  $p_privilege_level = '';
+  $procedure_query = "CALL `user_login`('$username', '$userPassword', $p_user_id, $p_privilege_level) ";
+  $procedure_query_result = mysqli_query($mysql, $procedure_query);
+
+  // User created successfully.
+  if ($procedure_query_result) {
+    $select_query = "SELECT $p_user_id AS `p_user_id`, $p_privilege_level AS `p_privilege_level`;";
+    $select_query = mysqli_query($mysql, $select_query);
+    $row = mysqli_num_rows($select_query);
+
+    if ($row > 0) {
+      $row = mysqli_fetch_assoc($select_query);
+
+      $p_user_id = $row['p_user_id'];
+      $p_privilege_level = $row['p_privilege_level'];
+    }
+  }
+}
 ?>

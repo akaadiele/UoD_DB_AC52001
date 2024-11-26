@@ -1,14 +1,13 @@
 <?php
 session_start();  // Start session
 include("../sources/php/db.php"); // Connect to database
+include("../sources/php/functions.php"); // custom functions
+
 
 $loggedInUsername = $_SESSION["loggedInUsername"];
 $userType = $_SESSION["loggedInUserType"];
 $loggedInId = $_SESSION["loggedInId"];
-
-// echo $_SESSION["loggedInUsername"];
-// echo $_SESSION["loggedInUserType"];
-// echo $_SESSION["loggedInId"];
+$loggedInUserPrivilegeLevel = $_SESSION["loggedInUserPrivilegeLevel"];
 
 // ------------------------------------------------------
 // Spool data for customer or employee
@@ -16,7 +15,7 @@ if ($userType == "customer") {
     // Spool the user's info from customer table
     // $select_query = "SELECT customerId, customerName, customerEmail, customerPhone, customerAddress, customerTypeId FROM `customer` WHERE customerId = '$loggedInId' ";
     $select_query = "SELECT * FROM customer_personal_view WHERE customerUsername = '$loggedInUsername' ";
-    
+
     $query_result = mysqli_query($mysql, $select_query);
     $row = mysqli_fetch_assoc($query_result);
 
@@ -29,13 +28,14 @@ if ($userType == "customer") {
 } elseif ($userType == "employee") {
     // Spool the user's info from employee table
     $select_query = "SELECT * FROM `employee_personal_view` WHERE employeeUsername = '$loggedInUsername' ";
-    
+
     $query_result = mysqli_query($mysql, $select_query);
     $row = mysqli_fetch_assoc($query_result);
 
-    $firstName = $row['firstName']; $lastName = $row['lastName'];
+    $firstName = $row['firstName'];
+    $lastName = $row['lastName'];
     $loggedInUser_FullName = $firstName . ' ' . $lastName;
-    
+
     $loggedInUser_Email = $row['employeeEmail'];
     $yearlySalary = $row['yearlySalary'];
     $branchId = $row['branchId'];
@@ -248,7 +248,11 @@ $_SESSION["loggedInUser_FullName"] = $loggedInUser_FullName
                     if ($userType == "customer") {
                         include('sidebar-customer.php');
                     } elseif ($userType == "employee") {
-                        include('sidebar-employee.php');
+                        if ($loggedInUserPrivilegeLevel == "head-office-manager") {
+                            include('sidebar-hq.php');
+                        } else {
+                            include('sidebar-employee.php');
+                        }
                     }
                     ?>
 
@@ -277,9 +281,29 @@ $_SESSION["loggedInUser_FullName"] = $loggedInUser_FullName
                 } elseif (isset($_GET['settings'])) {
                     include('settings.php');
                 } elseif (isset($_GET['edit-product'])) {
-                    include('./admin/edit-product.php');
+                    include('./modify/edit-product.php');
                 } elseif (isset($_GET['delete-product'])) {
-                    include('./admin/delete-product.php');
+                    include('./modify/delete-product.php');
+                } elseif (isset($_GET['edit-order'])) {
+                    include('./modify/edit-order.php');
+                } elseif (isset($_GET['delete-order'])) {
+                    include('./modify/delete-order.php');
+                } elseif (isset($_GET['edit-customer'])) {
+                    include('./modify/edit-customer.php');
+                } elseif (isset($_GET['delete-customer'])) {
+                    include('./modify/delete-customer.php');
+                } elseif (isset($_GET['edit-employee'])) {
+                    include('./modify/edit-employee.php');
+                } elseif (isset($_GET['delete-employee'])) {
+                    include('./modify/delete-employee.php');
+                } elseif (isset($_GET['edit-appointment'])) {
+                    include('./modify/edit-appointment.php');
+                } elseif (isset($_GET['delete-appointment'])) {
+                    include('./modify/delete-appointment.php');
+                } elseif (isset($_GET['edit-supplier'])) {
+                    include('./modify/edit-supplier.php');
+                } elseif (isset($_GET['delete-supplier'])) {
+                    include('./modify/delete-supplier.php');
                 } else {
                     include('dashboard.php');
                 }
@@ -312,4 +336,3 @@ $_SESSION["loggedInUser_FullName"] = $loggedInUser_FullName
 </body>
 
 </html>
-

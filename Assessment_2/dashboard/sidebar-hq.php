@@ -88,22 +88,13 @@
 
     <ul class="nav flex-column mb-auto">
         <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="../homepage/index.php">
+            <a class="nav-link d-flex align-items-center gap-2" href="../productsInfo/productsInfo.php">
                 <svg class="bi">
-                    <use xlink:href="#house-fill" />
-                </svg>
-                Home
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2 active" href="../productsInfo/productsInfo.php">
-                <svg class="bi">
-                    <use xlink:href="#people" />
+                    <use xlink:href="#cart" />
                 </svg>
                 Product Catalog
             </a>
         </li>
-
         <li class="nav-item">
             <a class="nav-link d-flex align-items-center gap-2 <?php if (isset($_GET['settings'])) {
                                                                     echo "active";

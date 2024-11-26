@@ -1,22 +1,5 @@
-<?php
-session_start();  // Start session
-include("../sources/php/db.php"); // Connect to database
-include("../sources/php/functions.php"); // custom functions
-
-$loggedInStatus = "";
-if (isset($_SESSION["loggedInUsername"])) {
-  $loggedInUsername = $_SESSION["loggedInUsername"];
-  $userType = $_SESSION["loggedInUserType"];
-  $loggedInId = $_SESSION["loggedInId"];
-  $loggedInUserPrivilegeLevel = $_SESSION["loggedInUserPrivilegeLevel"];
-
-  $loggedInStatus = "Y";
-}
-?>
-
-
 <!doctype html>
-<html lang="en" class="h-100" data-bs-theme="auto">
+<html lang="en" data-bs-theme="auto">
 
 <head>
   <meta charset="utf-8">
@@ -24,23 +7,26 @@ if (isset($_SESSION["loggedInUsername"])) {
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.122.0">
-  <title>FutureFit</title>
+  <title>Sign In</title>
 
-  <!-- Generic styles for this page -->
-  <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/cover/">
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
+
+
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+
   <link href="../sources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
+
   <!-- Custom styles for this page -->
-  <link href="home.css" rel="stylesheet">
+  <link href="sign-in.css" rel="stylesheet">
 
   <!-- Linking browser tab icon -->
   <link rel="icon" href="../sources/img/future-fit-image.ico">
+
 </head>
 
-<!-- <body class="d-flex h-100 text-center text-bg-dark "> -->
-
-<body class="d-flex h-100 text-center bg-body-tertiary">
+<body class="d-flex align-items-center py-4 bg-body-tertiary">
   <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
     <symbol id="check2" viewBox="0 0 16 16">
       <path
@@ -69,7 +55,6 @@ if (isset($_SESSION["loggedInUsername"])) {
       </svg>
       <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
     </button>
-
     <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
       <li>
         <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light"
@@ -111,78 +96,41 @@ if (isset($_SESSION["loggedInUsername"])) {
   </div>
 
 
-  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <header class="mb-auto">
-      <div>
-        <h3 class="float-md-start mb-0">Future Fit</h3>
-        <nav class="nav nav-masthead justify-content-center float-md-end">
-          <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="../homepage/home.php">Home</a> &nbsp;
-          <a class="nav-link fw-bold py-1 px-0" href="../productsInfo/productsInfo.php">Our Products</a>&nbsp;
-          
-          <?php if ($loggedInStatus == "Y") {
-            echo '<a class="nav-link fw-bold py-1 px-0" aria-current="page" href="../dashboard/index.php">Account</a> &nbsp;';
-          } else {
-            echo '<a class="nav-link fw-bold py-1 px-0" href="" data-bs-toggle="modal" data-bs-target="#signInModal">Sign In</a>&nbsp;';
-          }
-          ?>
-          <!-- <a class="nav-link fw-bold py-1 px-0" href="" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</a>&nbsp; -->
-        </nav>
-      </div>
-    </header>
+  <main class="form-signin w-100 m-auto">
+    <!-- ### Include PHP code -->
+    <!-- ### Set session variables -->
+    <form action="../productsInfo/productsInfo.php">
+      <img class="mb-4" src="../sources/img/future-fit-image.jpg" alt="" width="150" height="57">
+      <h1 class="h3 mb-3 fw-normal">Sign in</h1>
 
-    <main class="px-3">
-      <!-- <h1>Getting you fit for the future</h1> -->
-      <!-- <p class="lead">***Cover is a one-page template for building simple and beautiful home pages. Download, edit the
-        text, and add your own fullscreen background photo to make it your own.</p> -->
-      <h1>Welcome to Future Fit</h1>
-      <p class="lead">The future of fitness is here</p>
-      <p class="lead">
-        <a href="../productsInfo/productsInfo.php" class="btn btn-lg btn-light fw-bold border-white bg-white">Explore...</a>
+      <div class="form-floating">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Username</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">Password</label>
+      </div>
+
+      <div class="form-check text-start my-3">
+        <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+          Remember me
+        </label>
+      </div>
+      <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+      <hr class="my-3">
+      <p class="mt-1 mb-3 pb-1 small">
+        <em><a href="../sign-up/sign-up.php" class="text-white float-md-start">Don't have an account?</a></em>
+        <em><a href="../homepage/home.php" class="text-white float-md-end">close</a></em>
       </p>
-    </main>
-
-    <footer class="mt-auto text-white-50">
-      <p>Made with features from <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a></p>
-    </footer>
-  </div>
-
-
-
-  <!-- Modals -->
-  <!-- Modal - Sign In -->
-  <div class="modal fade" id="signInModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="signInModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-
-        <?php
-        include('sign-in.php');
-        ?>
-
-      </div>
-    </div>
-  </div>
-
-
-  <!-- Modal - Sign Up -->
-  <div class="modal fade" id="signUpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-
-        <?php
-        include('sign-up.php');
-        ?>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- Modals -->
+      <p class="mt-5 mb-3 text-body-secondary">&copy; 2024</p>
+    </form>
+  </main>
 
   <script src="../sources/assets/js/color-modes.js"></script>
   <script src="../sources/assets/dist/js/bootstrap.bundle.min.js"></script>
-
+  <script src="sign-in.js"></script>
 </body>
 
 </html>
-
-

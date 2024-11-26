@@ -1,7 +1,5 @@
-<!-- ### Include PHP code -->
-<!-- ### Set session variables -->
 <div class="modal-header">
-  <h1 class="modal-title fs-5" id="signInModalLabel">Sign Up</h1>
+  <h1 class="modal-title fs-5" id="signUpModalLabel">Sign Up</h1>
   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
@@ -9,25 +7,25 @@
   <form method="post">
     <div class="form-floating mb-3">
       <!-- <input type="text" class="form-control rounded-3" id="fullName" name="fullName" placeholder="John Doe" required> -->
-      <input type="text" class="form-control rounded-3" id="fullName" name="fullName" placeholder="John Doe">
+      <input type="text" class="form-control rounded-3" id="fullName" name="fullName" placeholder="John Doe" required>
       <label for="fullName">Full name</label>
     </div>
     <div class="form-floating mb-3">
-      <input type="email" class="form-control rounded-3" id="emailAddress" name="emailAddress" placeholder="name@example.com" >
+      <input type="email" class="form-control rounded-3" id="emailAddress" name="emailAddress" placeholder="name@example.com" required>
       <label for="emailAddress">Email</label>
     </div>
     <div class="form-floating mb-3">
-      <input type="tel" class="form-control rounded-3" id="phoneNumber" name="phoneNumber" placeholder="+44" >
+      <input type="tel" class="form-control rounded-3" id="phoneNumber" name="phoneNumber" placeholder="+44" required>
       <label for="phoneNumber">Phone</label>
     </div>
     <div class="form-floating mb-3">
-      <input type="text" class="form-control rounded-3" id="customerAddress" name="customerAddress" placeholder="Home" >
+      <input type="text" class="form-control rounded-3" id="customerAddress" name="customerAddress" placeholder="Home" required>
       <label for="customerAddress">Address</label>
     </div>
 
     <div class="form-floating mb-3">
-      <select name="customerType" id="customerType" name="customerType" class="form-select form-select-sm form-control rounded-3" >
-        <option selected>Customer Type</option>
+      <select name="customerType" id="customerType" name="customerType" class="form-select form-select-sm form-control rounded-3" required>
+        <option value="" selected>Customer Type</option>
         <?php
         $select_query_custType = "SELECT * FROM `CustomerType`";
         $query_result_custType = mysqli_query($mysql, $select_query_custType);
@@ -83,7 +81,9 @@ if (isset($_POST['registerUser'])) {
 
   // echo "<script> alert('customerType- $customerType -') </script>";
 
-  if ($confirmPassword != $password) {
+  if ($customerType == '') {
+    echo "<script> alert('Invalid Customer Type') </script>";
+  } elseif ($confirmPassword != $password) {
     echo "<script> alert('Passwords do not match') </script>";
   } else {
 

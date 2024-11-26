@@ -15,13 +15,10 @@
 
 <?php
 if (isset($_POST['userLogOut'])) {
-    // remove all session variables
-    session_unset();
-
-    // destroy the session
-    session_destroy();
-
-    echo "<script> alert('User Logged Out') </script>";
-    echo '<script> window.open("../homepage/index.php", "_self") </script>';
+  session_unset(); // remove all session variables
+  session_destroy(); // destroy the session
+  
+  echo '<script> window.open("../homepage/index.php", "_self") </script>';
+  echo "<script> alert('User Logged Out') </script>";
 }
 ?>
