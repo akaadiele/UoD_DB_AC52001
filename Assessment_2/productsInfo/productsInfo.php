@@ -301,10 +301,11 @@ if (isset($_SESSION["loggedInUsername"])) {
 
   </main>
 
-
-  <footer class="mt-auto text-white-50">
-    <p>Made with features from <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a></p>
-  </footer>
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column align-items-center just justify-content-center">
+    <footer class="mt-auto text-white-50">
+      <p>Made with features from <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a></p>
+    </footer>
+  </div>
 
   <!-- <footer class="container py-5">
     <div class="row">

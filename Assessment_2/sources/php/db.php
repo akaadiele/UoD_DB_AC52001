@@ -3,23 +3,17 @@
 // --------------------------------------------
 // Variables Declaration
 
-// local host connections
-$host = "localhost";
-$username = "admin";
-$password = "futurefit";
-$database = "futurefit-db";
-
-// // AWS Connections - Aka
-// $host = "futurefit.cvksiv3inuw9.us-east-1.rds.amazonaws.com";
-// $username = "admin";
-// $password = "FutureFit#101";
-// $database = "FutureFit";
-
-// // AWS Connections - Rosie
-// $host = "futurefit-db.cbdqpknj7clb.us-east-1.rds.amazonaws.com";
+// localhost connections
+// $host = "localhost";
 // $username = "admin";
 // $password = "futurefit";
 // $database = "futurefit-db";
+
+// AWS Connections
+$host = "futurefit-db.ctgqwu88o7b4.us-east-1.rds.amazonaws.com";
+$username = "admin";
+$password = "adminpassword";
+$database = "futurefit-db";
 
 // --------------------------------------------
 // --------------------------------------------
@@ -38,18 +32,5 @@ if ($mysql->connect_error) {
 
 // --------------------------------------------
 // --------------------------------------------
-
-// *** With PDO
-// $mysql = new PDO("mysql:host=".$host.";dbname=".$database,$username, $password);
-// echo "All done! <br>";
-
-// try {
-//     $mysql = new PDO("mysql:host=" . $host . ";dbname=" . $database, $username, $password);
-//     // set the PDO error mode to exception
-//     $mysql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//     // echo "Connected successfully";
-// } catch (PDOException $e) {
-//     echo "Connection failed: " . $e->getMessage();
-// }
 
 ?>

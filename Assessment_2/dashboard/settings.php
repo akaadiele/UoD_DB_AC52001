@@ -2,7 +2,8 @@
 
 if ($userType == "customer") {
   // Spool the user's info from customer table
-  $select_query = "SELECT customerId, customerName, customerEmail, customerPhone, customerAddress, customerTypeId FROM `customer` WHERE customerId = '$loggedInId' ";
+  // $select_query = "SELECT customerId, customerName, customerEmail, customerPhone, customerAddress, customerTypeId FROM `customer` WHERE customerId = '$loggedInId' ";
+  $select_query = "SELECT * FROM `customer_personal_view` WHERE customerId = '$loggedInId' ";
   $query_result = mysqli_query($mysql, $select_query);
   $row = mysqli_fetch_assoc($query_result);
 
@@ -11,10 +12,11 @@ if ($userType == "customer") {
   $loggedInUser_Email = $row['customerEmail'];
   $loggedInUser_Phone = $row['customerPhone'];
   $loggedInUser_Address = $row['customerAddress'];
-  $loggedInUser_TypeId = $row['customerTypeId'];
+  $loggedInUser_Type = $row['customerType'];
 } elseif ($userType == "employee") {
   // Spool the user's info from employee table
-  $select_query = "SELECT employeeId, firstName, lastName, employeeEmail, salaryBracketId, privilegeLevelId, branchId FROM `employee`";
+  // $select_query = "SELECT employeeId, firstName, lastName, employeeEmail, salaryBracketId, privilegeLevelId, branchId FROM `employee`";
+  $select_query = "SELECT * FROM `employee_personal_view` WHERE employeeId = '$loggedInId' ";
   $query_result = mysqli_query($mysql, $select_query);
   $row = mysqli_fetch_assoc($query_result);
 
@@ -24,9 +26,9 @@ if ($userType == "customer") {
   $loggedInUser_FullName = $firstName . ' ' . $lastName;
   $loggedInUser_Email = $row['employeeEmail'];
 
-  $salaryBracketId = $row['salaryBracketId'];
-  $privilegeLevelId = $row['privilegeLevelId'];
-  $branchId = $row['branchId'];
+  $yearlySalary = $row['yearlySalary'];
+  $privilegeLevel = $row['privilegeLevel'];
+  $branchName = $row['branchName'];
 }
 
 ?>
@@ -74,25 +76,25 @@ if ($userType == "customer") {
 
     <div class="input-group mb-3">
       <span class="input-group-text" id="basic-addon1">User Type</span>
-      <input type="text" class="form-control" placeholder="' . $loggedInUser_TypeId . '" aria-label="Username" aria-describedby="basic-addon1" disabled>
+      <input type="text" class="form-control" placeholder="' . $loggedInUser_Type . '" aria-label="Username" aria-describedby="basic-addon1" disabled>
     </div> ';
   } elseif ($userType == "employee") {
     echo '
       <div class="input-group mb-3">
       <span class="input-group-text" id="basic-addon1">Salary Bracket</span>
-      <input type="text" class="form-control" placeholder="' . $salaryBracketId . '" aria-label="Username" aria-describedby="basic-addon1" disabled>
+      <input type="text" class="form-control" placeholder="' . $yearlySalary . '" aria-label="Username" aria-describedby="basic-addon1" disabled>
     </div>
 
       
       <div class="input-group mb-3">
       <span class="input-group-text" id="basic-addon1">Privilege Level</span>
-      <input type="text" class="form-control" placeholder="' . $privilegeLevelId . '" aria-label="Username" aria-describedby="basic-addon1" disabled>
+      <input type="text" class="form-control" placeholder="' . $privilegeLevel . '" aria-label="Username" aria-describedby="basic-addon1" disabled>
     </div>
 
       
       <div class="input-group mb-3">
       <span class="input-group-text" id="basic-addon1">Branch</span>
-      <input type="text" class="form-control" placeholder="' . $branchId . '" aria-label="Username" aria-describedby="basic-addon1" disabled>
+      <input type="text" class="form-control" placeholder="' . $branchName . '" aria-label="Username" aria-describedby="basic-addon1" disabled>
     </div> ';
   }
 

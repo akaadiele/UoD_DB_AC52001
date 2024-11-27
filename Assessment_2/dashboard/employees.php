@@ -13,9 +13,15 @@
       </svg>
       This week
     </button> -->
-    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#employeeModal">
+
+    <?php
+    if (($loggedInUserPrivilegeLevel == "head-office-manager") or ($loggedInUserPrivilegeLevel == "branch-manager")) {
+      echo '<button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#employeeModal">
       New Employee
-    </button>
+    </button>';
+    }
+    ?>
+
   </div>
 </div>
 

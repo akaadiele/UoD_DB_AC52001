@@ -326,6 +326,11 @@ $_SESSION["loggedInUser_FullName"] = $loggedInUser_FullName
         </div>
     </div>
 
+    <!-- <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column align-items-center just justify-content-center">
+        <footer class="mt-auto text-white-50">
+            <p>Made with features from <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a></p>
+        </footer>
+    </div> -->
 
     <script src="../sources/assets/js/color-modes.js"></script>
     <script src="../sources/assets/dist/js/bootstrap.bundle.min.js"></script>

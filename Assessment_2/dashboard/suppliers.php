@@ -26,8 +26,6 @@
     <?php
     echo '<thead>
             <tr>
-              <th scope="col"></th>
-              <th scope="col"></th>
               <th scope="col">supplierId</th>
               <th scope="col">supplierName</th>
               <th scope="col">supplierPhone</th>
@@ -64,10 +62,8 @@
       $totalSalesCount = $row['totalSalesCount'];
 
       echo "<tbody>
-                <tr>";
-      echo '<td><a class="nav-link d-flex align-items-center gap-2" href="index.php?edit-supplier=' . $supplierId . '"><i class="fa-regular fa-pen-to-square"></i></a></td>';
-      echo '<td><a class="nav-link d-flex align-items-center gap-2" href="index.php?delete-supplier=' . $supplierId . '"><i class="fa-solid fa-trash"></i></a></td>';
-      echo "<td>$supplierId</td>
+                <tr>
+                  <td>$supplierId</td>
                   <td>$supplierName</td>
                   <td>$supplierPhone</td>
                   <td>$supplierEmail</td>
@@ -80,8 +76,12 @@
                   <td>$totalSupplierCost</td>
                   <td>$totalProfit</td>
                   <td>$averageProfitMarginPercentage</td>
-                  <td>$totalSalesCount</td>
-                </tr>
+                  <td>$totalSalesCount</td>";
+
+      echo '<td><a class="nav-link d-flex align-items-center gap-2" href="index.php?edit-supplier=' . $supplierId . '"><i class="fa-regular fa-pen-to-square"></i></a></td>';
+      echo '<td><a class="nav-link d-flex align-items-center gap-2" href="index.php?delete-supplier=' . $supplierId . '"><i class="fa-solid fa-trash"></i></a></td>';
+
+      echo "</tr>
               </tbody>";
     }
     ?>
