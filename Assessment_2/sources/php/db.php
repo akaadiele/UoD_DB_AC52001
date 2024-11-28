@@ -3,7 +3,7 @@
 // --------------------------------------------
 // Variables Declaration
 
-// localhost connections
+// // localhost connections
 // $host = "localhost";
 // $username = "admin";
 // $password = "futurefit";

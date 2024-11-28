@@ -27,7 +27,7 @@
       <select name="customerType" id="customerType" name="customerType" class="form-select form-select-sm form-control rounded-3" required>
         <option value="" selected>Customer Type</option>
         <?php
-        $select_query_custType = "SELECT * FROM `CustomerType`";
+        $select_query_custType = "SELECT * FROM `customertype`";
         $query_result_custType = mysqli_query($mysql, $select_query_custType);
         while ($rowCustType = mysqli_fetch_assoc($query_result_custType)) {
           $customerTypeId = $rowCustType['customerTypeId'];
