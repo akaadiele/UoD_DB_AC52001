@@ -23,7 +23,7 @@
                 <option selected>--- Select Category ---</option>
                 <?php
                 // // $current_customerTypeId;
-                // $select_query_prvLvl = "SELECT * FROM `privilegelevel`";
+                // $select_query_prvLvl = "SELECT * FROM `privilegelevel`  WHERE privilegeLevel == 'customer'";
                 // $query_result_prvLvl = mysqli_query($mysql, $select_query_prvLvl);
                 // while ($row_prvLvl = mysqli_fetch_assoc($query_result_prvLvl)) {
                 //     $privilegeLevelId = $row_prvLvl['categoryId'];

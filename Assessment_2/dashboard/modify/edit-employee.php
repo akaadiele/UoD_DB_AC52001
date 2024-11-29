@@ -54,7 +54,7 @@
             <select name="privilegeLevelId" id="privilegeLevelId" name="privilegeLevelId" class="form-select form-select-sm form-control rounded-3" required>
                 <option value="" selected>--- Change Privilege Level---</option>
                 <?php
-                $select_query_pl = "SELECT * FROM `privilegelevel` WHERE privilegeLevel != 'employee'";
+                $select_query_pl = "SELECT * FROM `privilegelevel` WHERE privilegeLevel != 'customer'";
                 $query_result_pl = mysqli_query($mysql, $select_query_pl);
                 while ($row_pl = mysqli_fetch_assoc($query_result_pl)) {
                     $privilegeLevelId = $row_pl['privilegeLevelId'];
