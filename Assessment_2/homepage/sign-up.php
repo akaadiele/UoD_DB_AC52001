@@ -39,15 +39,15 @@
     </div>
 
     <div class="form-floating mb-3">
-      <input type="text" class="form-control rounded-3" id="username" name="username" placeholder="Username" >
+      <input type="text" class="form-control rounded-3" id="username" name="username" placeholder="Username">
       <label for="username">Username</label>
     </div>
     <div class="form-floating mb-3">
-      <input type="password" class="form-control rounded-3" id="password" name="password" placeholder="Password" >
+      <input type="password" class="form-control rounded-3" id="password" name="password" placeholder="Password">
       <label for="password">Password</label>
     </div>
     <div class="form-floating mb-3">
-      <input type="password" class="form-control rounded-3" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" >
+      <input type="password" class="form-control rounded-3" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
       <label for="confirmPassword">Confirm Password</label>
     </div>
 
@@ -57,7 +57,7 @@
     <hr class="my-4">
 
     <p class="mt-2 mb-5 small"> <em><a href="" class="text-white float-md-start" data-bs-target="#signInModal" data-bs-toggle="modal">Already have an account?</a> </em> </p>
-    
+
   </form>
 
 </div>
@@ -87,34 +87,42 @@ if (isset($_POST['registerUser'])) {
     echo "<script> alert('Passwords do not match') </script>";
   } else {
 
-    // Query to check if customer already exist
-    $select_query_cust = "SELECT * FROM `Customer` WHERE customerName = '$fullName' OR customerEmail = '$emailAddress' OR customerPhone = '$phoneNumber' ";
 
+    // // Query to check if customer already exist
+    // $select_query_cust = "SELECT * FROM `customer` WHERE customerName = '$fullName' OR customerEmail = '$emailAddress' OR customerPhone = '$phoneNumber' ";
+    // $select_query_cust_result = mysqli_query($mysql, $select_query_cust);
+    // $select_query_cust_result_numRows = mysqli_num_rows($select_query_cust_result);
+
+    // // Query to check if customer login already exist
+    // $select_query_custLogin = "SELECT * FROM `customerlogin` WHERE customerUsername = '$username'";
+    // $select_query_custLogin_result = mysqli_query($mysql, $select_query_custLogin);
+    // $select_query_custLogin_result_numRows = mysqli_num_rows($select_query_custLogin_result);
+
+
+    // if ($select_query_cust_result_numRows > 0) {
+    //   echo "<script> alert('Customer already exists') </script>";
+    // } elseif ($select_query_custLogin_result_numRows > 0) {
+    //   echo "<script> alert('Username already exists') </script>";
+    // } else {
+
+    // Query to check if customer details already exist
+    $select_query_cust = "SELECT * FROM `customer_personal_view` WHERE customerName = '$fullName' OR customerEmail = '$emailAddress' OR customerUsername = '$username' ";
     $select_query_cust_result = mysqli_query($mysql, $select_query_cust);
     $select_query_cust_result_numRows = mysqli_num_rows($select_query_cust_result);
-
-    // Query to check if customer login already exist
-    $select_query_custLogin = "SELECT * FROM `CustomerLogin` WHERE customerUsername = '$username'";
-    $select_query_custLogin_result = mysqli_query($mysql, $select_query_custLogin);
-    $select_query_custLogin_result_numRows = mysqli_num_rows($select_query_custLogin_result);
-
-
     if ($select_query_cust_result_numRows > 0) {
       echo "<script> alert('Customer already exists') </script>";
-    } elseif ($select_query_custLogin_result_numRows > 0) {
-      echo "<script> alert('Username already exists') </script>";
     } else {
       // Call procedure to create customer and customerLogin      
       $procedure_query = "CALL create_customer_account('$fullName', '$emailAddress', '$phoneNumber', '$customerAddress', $customerType, '$username','$password')";
       $procedure_query_result = mysqli_query($mysql, $procedure_query);
-      
+
       // User created successfully.
       if ($procedure_query_result) {
         echo "<script> alert('User Registered successfully') </script>";
-        
       }
     }
   }
 }
+// }
 
 ?>

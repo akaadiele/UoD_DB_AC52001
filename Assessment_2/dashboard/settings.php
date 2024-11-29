@@ -168,7 +168,7 @@ if (isset($_POST['updateInfo'])) {
   } elseif ($update_NewPassword == $update_NewPassword2) {
 
     if ($userType == "customer") {
-      $select_query_pwCheck = "SELECT `customerId`,`customerUsername`,`customerPassword` FROM `CustomerLogin` WHERE customerUsername = '$loggedInUsername' AND customerPassword = '$update_CurrentPassword' ";
+      $select_query_pwCheck = "SELECT `customerId`,`customerUsername`,`customerPassword` FROM `customerlogin` WHERE customerUsername = '$loggedInUsername' AND customerPassword = '$update_CurrentPassword' ";
     } elseif ($userType == "employee") {
       $select_query_pwCheck = "SELECT `employeeId`,`employeeUsername`,`employeePassword` FROM `employeeLogin` WHERE employeeUsername = '$loggedInUsername' AND employeePassword = '$update_CurrentPassword' ";
     }
@@ -184,12 +184,12 @@ if (isset($_POST['updateInfo'])) {
         $customerUsername_pwCheck = $row_pwCheck['customerUsername'];
         $customerPassword_pwCheck = $row_pwCheck['customerPassword'];
 
-        $insert_query = "UPDATE `CustomerLogin` SET `customerPassword` = '$update_NewPassword' WHERE customerId = '$loggedInId'";
+        $insert_query = "UPDATE `customerlogin` SET `customerPassword` = '$update_NewPassword' WHERE customerId = '$loggedInId'";
         $insert_query_result = mysqli_query($mysql, $insert_query);
         if ($insert_query_result) {
           $updated = "Y";
         }
-        // $insert_query2 = "INSERT INTO `Customer` (customerEmail`,`customerPhone`,`customerAddress`) VALUES ('oscott@yahoo.com','07123123123','Newcastle')";
+        // $insert_query2 = "INSERT INTO `customer` (customerEmail`,`customerPhone`,`customerAddress`) VALUES ('oscott@yahoo.com','07123123123','Newcastle')";
         // $insert_query2_result = mysqli_query($mysql, $insert_query2);
         // if ($insert_query2_result) {
         //   $updated = "Y";

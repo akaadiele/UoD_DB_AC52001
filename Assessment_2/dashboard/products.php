@@ -109,7 +109,7 @@
             echo "<script> alert('Category already exists') </script>";
           } else {
             // Query to insert category
-            $insert_query_categ = "INSERT INTO `ItemCategory` (`category`) VALUES ('$categoryName')";
+            $insert_query_categ = "INSERT INTO `itemcategory` (`category`) VALUES ('$categoryName')";
             $insert_query_categ_result = mysqli_query($mysql, $insert_query_categ);
             if ($insert_query_categ_result) {
               echo "<script> alert('Category added successfully') </script>";

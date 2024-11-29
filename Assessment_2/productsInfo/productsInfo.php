@@ -160,7 +160,7 @@ if (isset($_SESSION["loggedInUsername"])) {
           if ($loggedInStatus == "Y") {
             echo '<a class="icon-link" href="" data-bs-toggle="modal" data-bs-target="#appointmentModal"><em>Make a booking</em> <svg class="bi"><use xlink:href="#chevron-right" /></svg> </a>';
           } else {
-            echo '<a class="icon-link" href="#"><em>Sign in to make a booking</em> <svg class="bi"><use xlink:href="#chevron-right" /></svg> </a>';
+            echo '<a class="icon-link" href="#" data-bs-toggle="modal" data-bs-target="#signInModal"><em>Sign in to make a booking</em> <svg class="bi"><use xlink:href="#chevron-right" /></svg> </a>';
           }
           ?>
           <!-- <a class="icon-link" href="#">

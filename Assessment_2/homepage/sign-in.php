@@ -52,7 +52,7 @@ if (isset($_POST['userLogInButton'])) {
 
   if ((isset($userType)) and ($userType == "customer")) {
     // Query to check if customer login already exist
-    $select_query_userLogin = "SELECT customerId, customerUsername FROM `CustomerLogin` WHERE customerUsername = '$username' AND customerPassword = '$userPassword' ";
+    $select_query_userLogin = "SELECT customerId, customerUsername FROM `customerlogin` WHERE customerUsername = '$username' AND customerPassword = '$userPassword' ";
 
     if ($select_query_userLogin) {
       $select_query_userLogin_result = mysqli_query($mysql, $select_query_userLogin);

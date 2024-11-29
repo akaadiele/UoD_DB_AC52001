@@ -102,7 +102,7 @@
             <select name="customerType" id="customerType" name="customerType" class="form-select form-select-sm form-control rounded-3" required>
               <option value="" selected>Customer Type</option>
               <?php
-              $select_query_custType = "SELECT * FROM `CustomerType`";
+              $select_query_custType = "SELECT * FROM `customertype`";
               $query_result_custType = mysqli_query($mysql, $select_query_custType);
               while ($rowCustType = mysqli_fetch_assoc($query_result_custType)) {
                 $customerTypeId = $rowCustType['customerTypeId'];
@@ -160,15 +160,15 @@ if (isset($_POST['createCustomer'])) {
   } elseif ($confirmPassword != $p_password) {
     echo "<script> alert('Passwords do not match') </script>";
   } else {
-
+    
     // Query to check if customer already exist
-    $select_query_cust = "SELECT * FROM `Customer` WHERE customerName = '$p_customer_name' OR customerEmail = '$p_customer_email' OR customerPhone = '$p_customer_phone' ";
-
+    // $select_query_cust = "SELECT * FROM `customer` WHERE customerName = '$p_customer_name' OR customerEmail = '$p_customer_email' OR customerPhone = '$p_customer_phone' ";
+    $select_query_cust = "SELECT * FROM `employee_customer_view` WHERE customerName = '$p_customer_name' OR customerEmail = '$p_customer_email' OR customerPhone = '$p_customer_phone' ";
     $select_query_cust_result = mysqli_query($mysql, $select_query_cust);
     $select_query_cust_result_numRows = mysqli_num_rows($select_query_cust_result);
 
     // Query to check if customer login already exist
-    $select_query_custLogin = "SELECT * FROM `CustomerLogin` WHERE customerUsername = '$p_username'";
+    $select_query_custLogin = "SELECT * FROM `customerlogin` WHERE customerUsername = '$p_username'";
     $select_query_custLogin_result = mysqli_query($mysql, $select_query_custLogin);
     $select_query_custLogin_result_numRows = mysqli_num_rows($select_query_custLogin_result);
 
