@@ -130,16 +130,16 @@ if ($userType == "customer") {
 
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Current Password</span>
-            <input type="text" class="form-control" placeholder="" name="update_CurrentPassword" aria-label="update_CurrentPassword" aria-describedby="basic-addon1" required>
+            <input type="password" class="form-control" placeholder="" name="update_CurrentPassword" aria-label="update_CurrentPassword" aria-describedby="basic-addon1" required>
           </div>
 
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">New Password</span>
-            <input type="text" class="form-control" placeholder="" name="update_NewPassword" aria-label="update_NewPassword" aria-describedby="basic-addon1" required>
+            <input type="password" class="form-control" placeholder="" name="update_NewPassword" aria-label="update_NewPassword" aria-describedby="basic-addon1" required>
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Re-type New Password</span>
-            <input type="text" class="form-control" placeholder="" name="update_NewPassword2" aria-label="update_NewPassword2" aria-describedby="basic-addon1" required>
+            <input type="password" class="form-control" placeholder="" name="update_NewPassword2" aria-label="update_NewPassword2" aria-describedby="basic-addon1" required>
           </div>
 
           <hr class="my-4">
